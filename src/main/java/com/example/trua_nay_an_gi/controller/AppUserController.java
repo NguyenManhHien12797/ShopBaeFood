@@ -6,6 +6,8 @@ import com.example.trua_nay_an_gi.service.app_users.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -21,6 +23,7 @@ public class AppUserController {
 
     @GetMapping("/api/users")
     public ResponseEntity<Iterable<AppUser>> showList() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<AppUser> customerList = (List<AppUser>) appUserService.findAll();
         if (customerList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

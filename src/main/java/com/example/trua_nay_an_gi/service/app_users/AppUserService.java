@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AppUserService implements IAppUserSevice, UserDetailsService {
+public class AppUserService implements IAppUserSevice {
     @Autowired
     AppUserRepository appUserRepository;
 
@@ -36,19 +36,14 @@ public class AppUserService implements IAppUserSevice, UserDetailsService {
         appUserRepository.deleteById(id);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUsers = appUserRepository.findByUserName(username);
-        return new User(appUsers.getUserName(), appUsers.getPassword(), appUsers.getAppRoles());
-    }
 
     @Override
     public boolean existByName(String name) {
-        return appUserRepository.existsByUserName(name);
+        return appUserRepository.existsByName(name);
     }
 
     @Override
     public AppUser findByUserName(String name) {
-        return appUserRepository.findByUserName(name);
+        return appUserRepository.findByName(name);
     }
 }

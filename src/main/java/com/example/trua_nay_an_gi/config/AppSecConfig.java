@@ -2,7 +2,7 @@ package com.example.trua_nay_an_gi.config;
 
 //import com.example.vn_social_network.service.app_users.UserService;
 import com.example.trua_nay_an_gi.config.filter.JwtAuthenticationFilter;
-import com.example.trua_nay_an_gi.service.app_users.AppUserService;
+import com.example.trua_nay_an_gi.service.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -22,7 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 @EnableWebSecurity
 public class AppSecConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    AppUserService appUserService;
+    AccountService accountService;
 
     @Autowired
     JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -35,10 +34,10 @@ public class AppSecConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login","/register","/mail/forgotpass").permitAll()
+        http.authorizeRequests().antMatchers("/**").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/api/users").hasRole("ADMIN")
-                .and()
+//                .authorizeRequests().antMatchers("/api/users").hasRole("ADMIN")
+//                .and()
 //                .authorizeRequests().antMatchers("/api/**add ").hasRole("ADMIN")
 //                .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/dangxuat"));
@@ -70,6 +69,6 @@ public class AppSecConfig extends WebSecurityConfigurerAdapter {
     // xắc thực
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(appUserService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(accountService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }

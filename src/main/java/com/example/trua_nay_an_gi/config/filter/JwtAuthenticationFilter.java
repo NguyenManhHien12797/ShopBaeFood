@@ -2,6 +2,8 @@ package com.example.trua_nay_an_gi.config.filter;
 
 
 
+import com.example.trua_nay_an_gi.model.app_users.Account;
+import com.example.trua_nay_an_gi.service.account.AccountService;
 import com.example.trua_nay_an_gi.service.app_users.AppUserService;
 import com.example.trua_nay_an_gi.service.app_users.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtService jwtService;
 
     @Autowired
-    private AppUserService userService;
+    private AccountService accountService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -34,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 // lấy username trong token
                 String username = jwtService.getUserNameFromJwtToken(token);
                 // lấy ra UserDetails thông qua username
-                UserDetails userDetails = userService.loadUserByUsername(username);
+                UserDetails userDetails = accountService.loadUserByUsername(username);
 
                 // thực hiện việc xắc thực thông qua token.
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
