@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,17 +21,20 @@ public class Merchant {
     private Long id;
     private String name;
     private String phone;
-    @ManyToMany
-    private List<Category> category;
+
     private String address;
     private String avatar;
     private String imageBanner;
     private String openTime;
     private String closeTime;
-    @ManyToOne
-    private Status status;
 
-    @ManyToMany
-    private List<Coupon>coupons;
+    @OneToMany(mappedBy = "merchant")
+    private Set<MerchantCategoryMap> merchantCategoryMapSet;
+
+    @OneToMany(mappedBy = "merchant")
+    private Set<MerchantCouponMap> merchantCouponMaps;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
+    private Account account;
 
 }
