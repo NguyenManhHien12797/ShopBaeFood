@@ -1,25 +1,25 @@
 package com.example.trua_nay_an_gi.model.app_users;
 
-import com.example.trua_nay_an_gi.model.product.Cart;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
-@Entity
+
+
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class AppUser {
+@Entity(name = "account_role")
+public class AccountRoleMap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String address;
-    private String phone;
-    private String avatar;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
-
-
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private AppRoles role;
 }
