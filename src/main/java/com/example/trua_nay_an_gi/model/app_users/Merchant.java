@@ -1,19 +1,48 @@
 package com.example.trua_nay_an_gi.model.app_users;
 
-import com.example.trua_nay_an_gi.model.product.Category;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "merchants")
 public class Merchant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String phone;
-    private List<Category> category;
-    private String address;
-    private String avatar;
-    private String imageBanner;
-    private String openTime;
-    private String closeTime;
-    private Status status;
 
+    @OneToOne
+    private AppUser user;
+    @NotEmpty
+    private String name;
+    @NotEmpty
+    private String description;
+    @NotEmpty
+    private String address;
+    @NotEmpty
+    @Pattern(regexp = "^[0](\\+\\d{1,3}\\s?)?((\\(\\d{3}\\)\\s?)|(\\d{3})(\\s|-?))(\\d{3}(\\s|-?))(\\d{3})(\\s?(([E|e]xt[:|.|]?)|x|X)(\\s?\\d+))?")
+    private String phone;
+
+    @Column(columnDefinition = "TIME")
+    private String openTime;
+
+    @Column(columnDefinition = "TIME")
+    private String closeTime;
+
+    // anh chup chung nhan Ve sinh an toan thuc pham
+    private String vsattp;
+
+    @Column(name = "isActive", columnDefinition = "boolean default true")
+    private boolean isActive;
+
+    private String avatar;
+
+    private String imageBanner;
 }
