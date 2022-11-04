@@ -41,5 +41,14 @@ public class AppUserController {
         user.setId(appUser.get().getId());
         return new ResponseEntity<>(appUserService.save(user),HttpStatus.OK);
     }
+    @PutMapping("/active/{id}")
+    public ResponseEntity<AppUser> active(@RequestBody AppUser user, @PathVariable Long id){
+        Optional<AppUser> appUser= appUserService.findById(id);
+        if(!appUser.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        user.setId(appUser.get().getId());
+        return new ResponseEntity<>(appUserService.save(user),HttpStatus.OK);
+    }
 
 }

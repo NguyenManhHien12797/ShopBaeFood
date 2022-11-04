@@ -30,4 +30,8 @@ public class AppRoles implements GrantedAuthority {
     public String getAuthority() {
         return name;
     }
+
+    public AppRoles(String name) {
+        this.name = name;
+    }
 }
