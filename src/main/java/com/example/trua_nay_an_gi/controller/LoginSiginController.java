@@ -45,12 +45,11 @@ public class LoginSiginController {
             String token = jwtService.createToken(authentication);
             Account account1 = accountService.findByName(account.getUserName());
             //lỗi
-            return new ResponseEntity(new AccountToken(account1.getId(), account1.getUserName(), token,null), HttpStatus.OK);
+            return new ResponseEntity(new AccountToken(account1.getId(), account1.getUserName(), token,accountService.findAppRoleByAccountId(account1.getId())), HttpStatus.OK);
 
         } catch (Exception e) {
             return null;
         }
-
     }
 //    @PostMapping("/register")
 //    public ResponseEntity<AppUser> addUser(@RequestBody Optional<AppUser> users){
