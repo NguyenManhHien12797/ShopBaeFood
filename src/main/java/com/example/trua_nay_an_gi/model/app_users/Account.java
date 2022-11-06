@@ -33,6 +33,4 @@ public class Account {
         this.userName = userName;
         this.password = password;
     }
-
-
 }

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.Set;
 @Entity
@@ -14,17 +16,25 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 public class Merchant {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty
     private String name;
+    @NotEmpty
+    @Pattern(regexp = "^[0](\\+\\d{1,3}\\s?)?((\\(\\d{3}\\)\\s?)|(\\d{3})(\\s|-?))(\\d{3}(\\s|-?))(\\d{3})(\\s?(([E|e]xt[:|.|]?)|x|X)(\\s?\\d+))?")
     private String phone;
 
+    @NotEmpty
     private String address;
+
     private String avatar;
     private String imageBanner;
+
+    @Column(columnDefinition = "TIME")
     private String openTime;
+
+    @Column(columnDefinition = "TIME")
     private String closeTime;
 
     @OneToMany(mappedBy = "merchant")
@@ -32,8 +42,10 @@ public class Merchant {
 
     @OneToMany(mappedBy = "merchant")
     private Set<MerchantCouponMap> merchantCouponMaps;
+
+    @Column(name = "isActive", columnDefinition = "boolean default true")
+    private boolean isActive;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;
-
 }
