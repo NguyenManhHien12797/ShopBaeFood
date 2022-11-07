@@ -9,6 +9,7 @@ public class AccountToken {
     private long id;
     private String username;
     private String token;
+
     private Set<AppRoles> roles;
 
     public AccountToken(long id, String username, String token, Set<AppRoles> roles) {
