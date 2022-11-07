@@ -1,5 +1,6 @@
 package com.example.trua_nay_an_gi.model.app_users;
 
+import com.example.trua_nay_an_gi.model.product.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;

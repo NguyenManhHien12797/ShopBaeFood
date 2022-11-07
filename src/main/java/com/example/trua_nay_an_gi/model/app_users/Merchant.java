@@ -23,8 +23,8 @@ public class Merchant {
     private Long id;
     @NotEmpty
     private String name;
-    @NotEmpty
-    @Pattern(regexp = "^[0](\\+\\d{1,3}\\s?)?((\\(\\d{3}\\)\\s?)|(\\d{3})(\\s|-?))(\\d{3}(\\s|-?))(\\d{3})(\\s?(([E|e]xt[:|.|]?)|x|X)(\\s?\\d+))?")
+//    @NotEmpty
+//    @Pattern(regexp = "^[0](\\+\\d{1,3}\\s?)?((\\(\\d{3}\\)\\s?)|(\\d{3})(\\s|-?))(\\d{3}(\\s|-?))(\\d{3})(\\s?(([E|e]xt[:|.|]?)|x|X)(\\s?\\d+))?")
     private String phone;
 
     @NotEmpty
@@ -33,10 +33,10 @@ public class Merchant {
     private String avatar;
     private String imageBanner;
 
-    @Column(columnDefinition = "TIME")
+//    @Column(columnDefinition = "TIME")
     private String openTime;
 
-    @Column(columnDefinition = "TIME")
+//    @Column(columnDefinition = "TIME")
     private String closeTime;
     private String status;
 
