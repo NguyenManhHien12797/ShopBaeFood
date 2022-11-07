@@ -1,6 +1,5 @@
 package com.example.trua_nay_an_gi.controller;
 
-import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/create")
+    @GetMapping
     public ResponseEntity<Iterable<Product>> finAll(){
         List<Product> product=(List<Product>) productService.findAll();
         if (product.isEmpty()){
