@@ -7,9 +7,9 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface IMerchantService extends GeneralService<Merchant> {
-    Optional<Merchant> findMerchantByAccountId(Long id);
-
-    Optional<Merchant> findMerchantByAccount_Id(Long accountId);
+//    Optional<Merchant> findMerchantByAccountId(Long id);
+//
+//    Optional<Merchant> findMerchantByAccount_Id(Long accountId);
 
 //    Iterable<DishDto> getAllDishDTO(Long id);
 //
