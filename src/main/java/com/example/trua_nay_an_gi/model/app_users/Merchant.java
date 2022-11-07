@@ -41,8 +41,7 @@ public class Merchant {
 
     private String status;
 
-    @OneToMany(mappedBy = "merchant")
-    private Set<MerchantCategoryMap> merchantCategoryMapSet;
+
 
     @OneToMany(mappedBy = "merchant")
     private Set<MerchantCouponMap> merchantCouponMaps;
