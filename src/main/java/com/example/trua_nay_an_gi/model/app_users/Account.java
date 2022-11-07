@@ -1,5 +1,6 @@
 package com.example.trua_nay_an_gi.model.app_users;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,4 @@ public class Account {
         this.userName = userName;
         this.password = password;
     }
-
-
 }

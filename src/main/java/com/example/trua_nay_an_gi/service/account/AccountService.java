@@ -1,6 +1,7 @@
 package com.example.trua_nay_an_gi.service.account;
 
 import com.example.trua_nay_an_gi.model.app_users.Account;
+import com.example.trua_nay_an_gi.model.app_users.AppRoles;
 import com.example.trua_nay_an_gi.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -9,10 +10,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 @Service
 public class AccountService implements IAccountService, UserDetailsService {
-        @Autowired
+    @Autowired
     AccountRepository accountRepository;
 
     @Override
@@ -41,8 +46,17 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public Set<AppRoles> findAppRoleByAccountId(Long id) {
+        List<String> roles = accountRepository.findAppRoleByAccountId(id);
+        Set<AppRoles> rolesSet = new HashSet<>();
+        roles.forEach(role -> rolesSet.add(new AppRoles(role)));
+        return rolesSet;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account= accountRepository.findByUserName(username);
-        return new User(account.getUserName(), account.getPassword(), null);
+        return new User(account.getUserName(), account.getPassword(), accountRepository.findRoleByAccountId(account.getId()));
     }
+
 }
