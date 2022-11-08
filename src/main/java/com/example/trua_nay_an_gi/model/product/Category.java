@@ -1,6 +1,7 @@
 package com.example.trua_nay_an_gi.model.product;
 
 //import com.example.trua_nay_an_gi.model.app_users.MerchantCategoryMap;
+import com.example.trua_nay_an_gi.model.app_users.MerchantCategoryMap;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,4 +23,8 @@ public class Category {
     @OneToMany(mappedBy = "category")
     @JsonBackReference
     private Set<ProductCategoryMap> productCategoryMapSet;
+
+    @OneToMany(mappedBy = "category")
+    @JsonBackReference
+    private Set<MerchantCategoryMap> merchantCategoryMaps;
 }
