@@ -1,6 +1,5 @@
 package com.example.trua_nay_an_gi.controller;
 
-import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +48,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> delete (@PathVariable Long id){
+    public ResponseEntity<Product> deleteProduct (@PathVariable Long id){
         Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -59,7 +58,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> saveCustomer(@RequestBody Product product) {
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 }
