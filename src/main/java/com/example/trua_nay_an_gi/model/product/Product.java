@@ -1,5 +1,6 @@
 package com.example.trua_nay_an_gi.model.product;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class Product {
     private Double newPrice;
     private String image;
     @OneToMany(mappedBy = "product")
+    @JsonManagedReference
     private Set<ProductCategoryMap> productCategoryMapSet;
     @OneToMany(mappedBy = "product")
     private Set<ProductCartMap> productCartMapSet;
