@@ -20,27 +20,27 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Product>> finAll(){
-        List<Product> products=(List<Product>) productService.findAll();
-        if (products.isEmpty()){
+    public ResponseEntity<List<Product>> finAll() {
+        List<Product> products =  productService.findAllProductByDeleteFlagIsTrue();
+        if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-            return new ResponseEntity<>(products,HttpStatus.OK);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id){
-        Optional<Product> products= productService.findById(id);
-        if(!products.isPresent()){
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id) {
+        Optional<Product> products = productService.findById(id);
+        if (!products.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         product.setId(products.get().getId());
-        return new ResponseEntity<>(productService.save(product),HttpStatus.OK);
+        return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id) {
-        Optional<Product> productOptional =productService.findById(id);
+        Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -63,13 +63,13 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Product> disableProduct(@PathVariable Long id){
-        Optional<Product>productOptional=productService.findById(id);
-        if (!productOptional.isPresent()){
+    public ResponseEntity<Product> disableProduct(@PathVariable Long id) {
+        Optional<Product> productOptional = productService.findById(id);
+        if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         productOptional.get().setDeleteFlag(false);
-        return new ResponseEntity<>(productOptional.get(),HttpStatus.OK);
+        return new ResponseEntity<>(productService.save(productOptional.get()), HttpStatus.OK);
     }
 }
 
