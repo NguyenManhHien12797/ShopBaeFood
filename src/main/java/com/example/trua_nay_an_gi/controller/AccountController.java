@@ -34,13 +34,13 @@ public class AccountController {
         }
         return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
     }
-    //http://localhost:8080/account/create
-    @PostMapping("create")
+    //http://localhost:8080/account
+    @PostMapping()
     public ResponseEntity<Account> saveCustomer(@RequestBody Account account) {
         return new ResponseEntity<>(accountService.save(account), HttpStatus.CREATED);
     }
-    //http://localhost:8080/edit/{id}
-    @PutMapping("/edit/{id}")
+    //http://localhost:8080/{id}
+    @PutMapping("/{id}")
     public ResponseEntity<Account> updateCustomer(@PathVariable Long id, @RequestBody Account account) {
         Optional<Account> accountOptional = accountService.findById(id);
         if (!accountOptional.isPresent()) {
@@ -49,8 +49,8 @@ public class AccountController {
         account.setId(accountOptional.get().getId());
         return new ResponseEntity<>(accountService.save(account), HttpStatus.OK);
     }
-    //    http://localhost:8080/delete/{id}
-    @DeleteMapping("/delete/{id}")
+    //    http://localhost:8080/{id}
+    @DeleteMapping("/{id}")
     public ResponseEntity<Account> deleteCustomer(@PathVariable Long id) {
         Optional<Account> accountOptional = accountService.findById(id);
         if (!accountOptional.isPresent()) {
