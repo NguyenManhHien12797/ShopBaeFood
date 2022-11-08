@@ -47,21 +47,29 @@ public class ProductController {
         return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Product> deleteProduct (@PathVariable Long id){
-        Optional<Product> productOptional = productService.findById(id);
-        if (!productOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        productService.remove(id);
-        return new ResponseEntity<>(productOptional.get(),HttpStatus.NO_CONTENT);
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Product> deleteProduct (@PathVariable Long id){
+//        Optional<Product> productOptional = productService.findById(id);
+//        if (!productOptional.isPresent()){
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        productService.remove(id);
+//        return new ResponseEntity<>(productOptional.get(),HttpStatus.NO_CONTENT);
+//    }
 
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
-
+    @PatchMapping("/{id}")
+    public ResponseEntity<Product> disableProduct(@PathVariable Long id){
+        Optional<Product>productOptional=productService.findById(id);
+        if (!productOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        productOptional.get().setDeleteFlag(false);
+        return new ResponseEntity<>(productOptional.get(),HttpStatus.OK);
+    }
 }
 

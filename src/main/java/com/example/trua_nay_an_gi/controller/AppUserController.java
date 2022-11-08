@@ -17,11 +17,12 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/api/users")
 public class AppUserController {
     @Autowired
     AppUserService appUserService;
 
-    @GetMapping("/api/users")
+    @GetMapping()
     public ResponseEntity<Iterable<AppUser>> showList() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<AppUser> customerList = (List<AppUser>) appUserService.findAll();
