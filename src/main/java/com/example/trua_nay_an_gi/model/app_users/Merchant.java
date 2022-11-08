@@ -2,6 +2,7 @@ package com.example.trua_nay_an_gi.model.app_users;
 
 import com.example.trua_nay_an_gi.model.product.Category;
 import com.example.trua_nay_an_gi.model.product.Coupon;
+import com.example.trua_nay_an_gi.model.product.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -40,6 +41,9 @@ public class Merchant {
     private String closeTime;
 
     private String status;
+
+    @OneToMany(mappedBy = "merchant")
+    private List<Product> productList;
 
     @OneToMany(mappedBy = "merchant")
     private Set<MerchantCategoryMap>merchantCategoryMaps;
