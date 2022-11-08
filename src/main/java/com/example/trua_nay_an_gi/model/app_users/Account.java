@@ -33,5 +33,14 @@ public class Account {
     public Account(String userName, String password) {
         this.userName = userName;
         this.password = password;
+
+    }
+
+    public Account(String userName, String password, boolean isEnabled, String email, Set<AccountRoleMap> accountRoleMapSet) {
+        this.userName = userName;
+        this.password = password;
+        this.isEnabled = isEnabled;
+        this.email = email;
+        this.accountRoleMapSet = accountRoleMapSet;
     }
 }
