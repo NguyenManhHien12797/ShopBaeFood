@@ -1,5 +1,6 @@
 package com.example.trua_nay_an_gi.model.product;
 
+import com.example.trua_nay_an_gi.model.app_users.Merchant;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class Product {
     private Double oldPrice;
     private Double newPrice;
     private String image;
+
     @OneToMany(mappedBy = "product")
     private Set<ProductCategoryMap> productCategoryMapSet;
     @OneToMany(mappedBy = "product")
