@@ -21,11 +21,11 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> finAll(){
-        List<Product> product=(List<Product>) productService.findAll();
-        if (product.isEmpty()){
+        List<Product> products=(List<Product>) productService.findAll();
+        if (products.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-            return new ResponseEntity<>(product,HttpStatus.OK);
+            return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -61,5 +61,7 @@ public class ProductController {
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
+
+
 }
 
