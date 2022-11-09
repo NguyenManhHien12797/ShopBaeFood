@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -33,4 +34,17 @@ public class ProductService implements IProductService<Product> {
         productRepository.deleteById(id);
 
     }
+
+
+    @Override
+    public Iterable<Product> findAllByDeleteFlagAndMerchant(Long id) {
+        return productRepository.getAllByDeleteFlagTrueAndMerchant(id);
+    }
+
+    @Override
+    public List<Product> finallProductbydeleteflagTrue() {
+        return productRepository.finallProductdeleteflagTrue();
+    }
+
+
 }

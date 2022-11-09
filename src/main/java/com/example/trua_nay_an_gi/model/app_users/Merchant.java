@@ -51,7 +51,6 @@ public class Merchant {
 //
 //    @OneToMany(mappedBy = "merchant")
 //    private Set<MerchantCouponMap> merchantCouponMaps;
-
 //    @Column(name = "isActive", columnDefinition = "boolean default true")
 //    private boolean isActive;
     @OneToOne(cascade = CascadeType.ALL)

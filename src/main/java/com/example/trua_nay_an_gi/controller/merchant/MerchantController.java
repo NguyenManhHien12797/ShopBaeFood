@@ -70,12 +70,12 @@ public class MerchantController {
         return new ResponseEntity<>(merchantService.save(newMerchant), HttpStatus.OK);
     }
 
-    @PostMapping("create")
+    @PostMapping()
     public ResponseEntity<Merchant> saveMerchant(@RequestBody Merchant merchant) {
         return new ResponseEntity<>(merchantService.save(merchant), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Merchant> deleteMerchant(@PathVariable Long id) {
         Optional<Merchant> merchantOptional = merchantService.findById(id);
         if (!merchantOptional.isPresent()) {

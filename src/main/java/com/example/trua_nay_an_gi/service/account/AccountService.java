@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -54,9 +55,10 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account= accountRepository.findByUserName(username);
-        return new User(account.getUserName(), account.getPassword(), accountRepository.findRoleByAccountId(account.getId()));
+        return AccountDetails.build(account);
     }
 
 }

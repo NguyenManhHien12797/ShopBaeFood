@@ -1,59 +1,72 @@
 package com.example.trua_nay_an_gi.controller;
 
+import com.example.trua_nay_an_gi.jwt.JwtUtility;
 import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.app_users.AccountRoleMap;
 import com.example.trua_nay_an_gi.model.app_users.AppRoles;
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.dto.AccountRegisterDTO;
 import com.example.trua_nay_an_gi.model.dto.AccountToken;
+import com.example.trua_nay_an_gi.payload.request.LoginRequest;
+import com.example.trua_nay_an_gi.service.account.AccountDetails;
 import com.example.trua_nay_an_gi.service.account.AccountService;
 import com.example.trua_nay_an_gi.service.account_role.AccountRoleService;
-import com.example.trua_nay_an_gi.service.app_users.JwtService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.Optional;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/api/public")
 public class LoginSiginController {
+//    @Autowired
+//    JwtService jwtService;
+
     @Autowired
-    JwtService jwtService;
+    private JwtUtility jwtUtility;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
     @Autowired
     AccountRoleService accountRoleService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @PostMapping(value = "/login")
-    public ResponseEntity<AccountToken> login(@RequestBody Account account) {
+    public ResponseEntity<AccountToken> login(@RequestBody LoginRequest loginRequest) {
         try {
             // Tạo ra 1 đối tượng Authentication.
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(account.getUserName(), account.getPassword()));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-            String token = jwtService.createToken(authentication);
-            Account account1 = accountService.findByName(account.getUserName());
-            //lỗi
-            return new ResponseEntity(new AccountToken(account1.getId(), account1.getUserName(), token,accountService.findAppRoleByAccountId(account1.getId())), HttpStatus.OK);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = jwtUtility.createJwTToken(loginRequest.getUsername());
+            AccountDetails userDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<String>roles= userDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            Account account = accountService.findByName(loginRequest.getUsername());
+
+
+            return new ResponseEntity(new AccountToken(account.getId(), account.getUserName(), token,roles, account.getMerchant()), HttpStatus.OK);
 
         } catch (Exception e) {
             return null;
@@ -62,37 +75,11 @@ public class LoginSiginController {
     @PostMapping("/register")
     public ResponseEntity<Account> addUser(@RequestBody AccountRegisterDTO request){
 
-        Set<AccountRoleMap> accountRoleMapSet= new HashSet<>();
-        AccountRoleMap accountRoleMap= new AccountRoleMap();
-        // đoạn này e đang tạo user nên có thể set role mặc định của nó là USER  luôn
-//        AppRoles appRoles= new AppRoles();
-//        appRoles.setId(2L);
-//        accountRoleMap.setRole(appRoles);
-        //Copy thuôc tính của dto cho account, cái này nó sẽ copy theo tên field
-        Account account = new Account();
-        BeanUtils.copyProperties(request, account);
-        //Copy đto cho user
-        AppUser appUser = new AppUser();
-        BeanUtils.copyProperties(request,appUser);
-        accountRoleMap.setAccount(account);
-        account = accountService.save(account);
-        //Lấy ra đối tượng appROle có name = USER;
-        AppRoles appRoles= new AppRoles();
-        accountRoleMap.setAccount(account);
+          Account account = new Account(request.getUserName(), request.getPassword());
 
-        //Cái này e gọi vào repo để lấy ra thằng role tương ứng ở bảng appRole xong set vào
-        //
-//        accountRoleMap.setRole(account);
-        //gọi service để lưu accountRoleMap
-//        Account account= new Account(request.get().getUserName(),
-//                request.get().getPassword(),true,
-//                request.get().getEmail(),
-//                accountRoleMapSet);
-//        accountRoleMapSet.add(accountRoleMap);
 
-//        if(request.isPresent()){
-//                return new ResponseEntity<>(accountService.save(account), HttpStatus.CREATED);
-//        }
+
+
         return new ResponseEntity<>( HttpStatus.NOT_FOUND);
     }
 }
