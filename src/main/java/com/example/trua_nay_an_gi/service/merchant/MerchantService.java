@@ -32,6 +32,11 @@ public class MerchantService implements IMerchantService{
     public void remove(Long id) {
         merchantRepository.deleteById(id);
     }
+
+    @Override
+    public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID) {
+        merchantRepository.saveMerchantToRegister(address,avatar,name,phone,status,accountID);
+    }
 //    @Override
 //    public Optional<Merchant> findMerchantByAccountId(Long id) {
 //        return merchantRepository.findMerchantByAccountId(id);

@@ -44,9 +44,12 @@ public class Account {
         this.accountRoleMapSet = accountRoleMapSet;
     }
 
-    public Account(String userName, String password, String email) {
+    public Account(String userName, String password, String email, boolean isEnabled) {
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.isEnabled = isEnabled;
     }
+
+
 }
