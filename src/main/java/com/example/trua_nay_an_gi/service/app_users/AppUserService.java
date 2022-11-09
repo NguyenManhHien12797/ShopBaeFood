@@ -43,7 +43,12 @@ public class AppUserService implements IAppUserSevice {
     }
 
     @Override
-    public AppUser findByUserName(String name) {
-        return appUserRepository.findByName(name);
+    public Optional<AppUser> findByUsername(String username) {
+        return appUserRepository.findByName(username);
     }
+
+//    @Override
+//    public AppUser findByUserName(String name) {
+//        return appUserRepository.findByName(name);
+//    }
 }

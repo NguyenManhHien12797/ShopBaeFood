@@ -22,35 +22,35 @@ public class Merchant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @NotEmpty
+    @NotEmpty
     private String name;
-//    @NotEmpty
-//    @Pattern(regexp = "^[0](\\+\\d{1,3}\\s?)?((\\(\\d{3}\\)\\s?)|(\\d{3})(\\s|-?))(\\d{3}(\\s|-?))(\\d{3})(\\s?(([E|e]xt[:|.|]?)|x|X)(\\s?\\d+))?")
+    @NotEmpty
+    @Pattern(regexp = "^[0](\\+\\d{1,3}\\s?)?((\\(\\d{3}\\)\\s?)|(\\d{3})(\\s|-?))(\\d{3}(\\s|-?))(\\d{3})(\\s?(([E|e]xt[:|.|]?)|x|X)(\\s?\\d+))?")
     private String phone;
 
-//    @NotEmpty
+    @NotEmpty
     private String address;
 
     private String avatar;
     private String imageBanner;
 
-//    @Column(columnDefinition = "TIME")
+    @Column(columnDefinition = "TIME")
     private String openTime;
 
-//    @Column(columnDefinition = "TIME")
+    @Column(columnDefinition = "TIME")
     private String closeTime;
 
     private String status;
 
-    @OneToMany(mappedBy = "merchant")
-    private List<Product> productList;
-
-    @OneToMany(mappedBy = "merchant")
-    private Set<MerchantCategoryMap>merchantCategoryMaps;
-
-
-    @OneToMany(mappedBy = "merchant")
-    private Set<MerchantCouponMap> merchantCouponMaps;
+//    @OneToMany(mappedBy = "merchant")
+//    private List<Product> productList;
+//
+//    @OneToMany(mappedBy = "merchant")
+//    private Set<MerchantCategoryMap>merchantCategoryMaps;
+//
+//
+//    @OneToMany(mappedBy = "merchant")
+//    private Set<MerchantCouponMap> merchantCouponMaps;
 
 //    @Column(name = "isActive", columnDefinition = "boolean default true")
 //    private boolean isActive;

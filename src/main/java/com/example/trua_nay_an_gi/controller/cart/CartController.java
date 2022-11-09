@@ -1,4 +1,4 @@
-package com.example.trua_nay_an_gi.cart;
+package com.example.trua_nay_an_gi.controller.cart;
 
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.app_users.Merchant;
@@ -37,6 +37,20 @@ public class CartController {
     @Autowired
     IProductService productService;
 
+//        @GetMapping
+//    public ResponseEntity<?> getCurrentUserCart(){
+//        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+//        AppUser currentUser = appUserSevice.findByUsername(principal.getName()).get();
+//
+//        if (currentUser == null) {
+//            ErrorMessage errorMessage = new ErrorMessage("Người dùng chưa đăng nhập");
+//            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+//        }
+//
+//        CartDto cartDto = cartService.getUserCartDto(currentUser);
+//        return new ResponseEntity<>(cartDto, HttpStatus.OK);
+//    }
+
     public ResponseEntity<?> changeProductQuantity(Long cartId, Long productId, int amount) {
         Optional<Cart> findCart = cartService.findById(cartId);
         if (!findCart.isPresent()) {
@@ -66,6 +80,7 @@ public class CartController {
         return changeProductQuantity(cartId, productId , -1);
     }
 
+
     @GetMapping("/users/{userId}")
     public ResponseEntity<?> getAllCartDtoByUser(@PathVariable Long userId) {
         Optional<AppUser> findUser = appUserSevice.findById(userId);
@@ -94,4 +109,20 @@ public class CartController {
         CartDto cartDto = cartService.getCartDtoByUserAndMerchant(findUser.get(), findMerchant.get());
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
+
+    @PostMapping("/users/current-user/add-product-to-cart")
+    public ResponseEntity<?> addProductToCart(@RequestBody CartDetailDto cartDetailDto) {
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+        AppUser currentUser = appUserSevice.findByUsername(principal.getName()).get();
+
+        Optional<Product> findProduct = productService.findById(cartDetailDto.getProduct().getId());
+        if (!findProduct.isPresent()) {
+            ErrorMessage errorMessage = new ErrorMessage("Món ăn không tồn tại");
+            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        }
+
+        CartDto cartDto = cartService.addProductToCart(currentUser, cartDetailDto);
+        return new ResponseEntity<>(cartDto, HttpStatus.OK);
+    }
+
 }

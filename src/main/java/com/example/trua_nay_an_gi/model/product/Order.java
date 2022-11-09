@@ -42,7 +42,7 @@ public class Order {
     @Column(columnDefinition = "VARCHAR(500)")
     private String shippingNote;
 
-    @Column(columnDefinition = "VARCHAR(100)")
-    private String status;
+    @Column(columnDefinition = "TINYINT default 0")
+    private int status;
 
 }
