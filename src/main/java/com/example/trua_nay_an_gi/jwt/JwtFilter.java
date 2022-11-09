@@ -1,17 +1,13 @@
-package com.example.trua_nay_an_gi.config.filter;
+package com.example.trua_nay_an_gi.jwt;
 
-
-
-import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.service.account.AccountService;
-import com.example.trua_nay_an_gi.service.app_users.AppUserService;
-import com.example.trua_nay_an_gi.service.app_users.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -21,42 +17,38 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtFilter extends OncePerRequestFilter {
     @Autowired
-    private JwtService jwtService;
-
+    private JwtUtility jwtUtility;
     @Autowired
     private AccountService accountService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        try {
-            String token = getTokenFromRequest(request);
-            if (token != null) {
-                // lấy username trong token
-                String username = jwtService.getUserNameFromJwtToken(token);
-                // lấy ra UserDetails thông qua username
-                UserDetails userDetails = accountService.loadUserByUsername(username);
+        try{
+            String jwt = parseJwt(request);
+            if(jwt != null && jwtUtility.validateJwtToken(jwt)){
+                String username = jwtUtility.getUserNameFromJwtToken(jwt);
 
-                // thực hiện việc xắc thực thông qua token.
+                UserDetails userDetails = accountService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (Exception e) {
-            logger.error("Can NOT set user authentication -> Message: {}", e);
+        }catch (Exception e){
+            logger.error("Cannot set user authentication: {}" ,e);
         }
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request,response);
     }
 
-
-    private String getTokenFromRequest(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            return authHeader.replace("Bearer ", "");
+    private String parseJwt(HttpServletRequest request){
+        String headerAuth = request.getHeader("Authorization");
+        if(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")){
+            return headerAuth.substring(7, headerAuth.length());
         }
+
         return null;
     }
 }

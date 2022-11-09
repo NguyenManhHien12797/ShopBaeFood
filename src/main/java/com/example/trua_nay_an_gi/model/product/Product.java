@@ -23,10 +23,10 @@ public class Product {
     private Double oldPrice;
     private Double newPrice;
     private String image;
-    @OneToMany(mappedBy = "product")
-    @JsonManagedReference
-    private Set<ProductCategoryMap> productCategoryMapSet;
-    @OneToMany(mappedBy = "product")
-    private Set<ProductCartMap> productCartMapSet;
+//    @OneToMany(mappedBy = "product")
+//    @JsonManagedReference
+//    private Set<ProductCategoryMap> productCategoryMapSet;
+//    @OneToMany(mappedBy = "product")
+//    private Set<ProductCartMap> productCartMapSet;
 
 }

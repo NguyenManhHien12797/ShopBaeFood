@@ -41,12 +41,12 @@ public class Merchant {
 
     private String status;
 
-    @OneToMany(mappedBy = "merchant")
-    private Set<MerchantCategoryMap>merchantCategoryMaps;
-
-
-    @OneToMany(mappedBy = "merchant")
-    private Set<MerchantCouponMap> merchantCouponMaps;
+//    @OneToMany(mappedBy = "merchant")
+//    private Set<MerchantCategoryMap>merchantCategoryMaps;
+//
+//
+//    @OneToMany(mappedBy = "merchant")
+//    private Set<MerchantCouponMap> merchantCouponMaps;
 
 //    @Column(name = "isActive", columnDefinition = "boolean default true")
 //    private boolean isActive;
