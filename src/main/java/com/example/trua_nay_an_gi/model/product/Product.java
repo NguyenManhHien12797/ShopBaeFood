@@ -26,12 +26,6 @@ public class Product {
     private Double newPrice;
     private String image;
 
-//    @OneToMany(mappedBy = "product")
-//    @JsonManagedReference
-//    private Set<ProductCategoryMap> productCategoryMapSet;
-//    @OneToMany(mappedBy = "product")
-//    private Set<ProductCartMap> productCartMapSet;
-
     @Column(name = "deleteFlag", columnDefinition = "boolean default true")
     private boolean deleteFlag;
 
