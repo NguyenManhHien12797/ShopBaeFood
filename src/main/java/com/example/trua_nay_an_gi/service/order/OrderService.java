@@ -79,16 +79,23 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<OrderDto> findAllOrderDtoByUserId(Long userId) {
-        return null;
+        Iterable<Order> orders =orderRepository.findAllByAppUser_IdOrderByCreateDateDesc(userId);
+        List<OrderDto> orderDtos = new ArrayList<>();
+
+        for (Order order : orders){
+            OrderDto orderDto = getOrderDto(order.getId());
+            orderDtos.add(orderDto);
+        }
+        return orderDtos;
     }
 
     @Override
-    public Iterable<Order> findAllByUserId(Long id) {
-        return null;
+    public Iterable<Order> findAllByUserId(Long id)  {
+        return orderRepository.findAllByAppUser_IdOrderByCreateDateDesc(id);
     }
 
     @Override
     public Iterable<OrderDtoByOwner> findAllOrderDtoByOwnerId(Long ownerId) {
-        return null;
+        return orderRepository.findOrderByOwnerIdOrderByCreateDateDesc(ownerId);
     }
 }
