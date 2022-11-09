@@ -7,10 +7,8 @@ import com.example.trua_nay_an_gi.model.dto.AccountToken;
 import com.example.trua_nay_an_gi.payload.request.LoginRequest;
 import com.example.trua_nay_an_gi.payload.response.MessageResponse;
 import com.example.trua_nay_an_gi.service.account.AccountDetails;
-import com.example.trua_nay_an_gi.service.account.AccountService;
 import com.example.trua_nay_an_gi.service.account.IAccountService;
 import com.example.trua_nay_an_gi.service.account_role.IRoleService;
-import com.example.trua_nay_an_gi.service.account_role.RoleService;
 import com.example.trua_nay_an_gi.service.app_users.IAppUserSevice;
 import com.example.trua_nay_an_gi.service.merchant.IMerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/public")
-public class LoginSiginController {
+public class SecurityController {
 //    @Autowired
 //    JwtService jwtService;
 
@@ -92,7 +90,7 @@ public class LoginSiginController {
         }
 
         boolean isEnabled = true;
-        Account account = new Account(request.getUserName(), request.getPassword(), request.getEmail(), isEnabled);
+        Account account = new Account(request.getUserName(), encoder.encode(request.getPassword()), request.getEmail(), isEnabled);
         accountService.save(account);
         Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
         roleService.setDefaultRole(idAccountAfterCreated, 2);
@@ -111,7 +109,7 @@ public class LoginSiginController {
         }
 
         boolean isEnabled = true;
-        Account account = new Account(request.getUserName(), request.getPassword(), request.getEmail(), isEnabled);
+        Account account = new Account(request.getUserName(), encoder.encode(request.getPassword()), request.getEmail(), isEnabled);
         accountService.save(account);
         Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
         roleService.setDefaultRole(idAccountAfterCreated, 3);
@@ -120,5 +118,5 @@ public class LoginSiginController {
         merchantService.saveMerchantToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),status,idAccountAfterCreated);
         return ResponseEntity.ok(new MessageResponse("Đăng ký tài khoản thành công"));
     }
-}
+}g
 
