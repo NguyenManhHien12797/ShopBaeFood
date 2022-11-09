@@ -8,5 +8,5 @@ import java.util.List;
 
 @Service
 public interface IProductService<P> extends GeneralService<Product> {
-    List<Product> findAllProductByDeleteFlagIsTrue();
+    Iterable<Product> findAllByDeleteFlagAndMerchant(Long id);
 }

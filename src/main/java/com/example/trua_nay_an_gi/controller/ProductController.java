@@ -21,7 +21,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> finAll() {
-        List<Product> products =  productService.findAllProductByDeleteFlagIsTrue();
+        List<Product> products = (List<Product>) productService.findAll();
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -70,6 +70,14 @@ public class ProductController {
         }
         productOptional.get().setDeleteFlag(false);
         return new ResponseEntity<>(productService.save(productOptional.get()), HttpStatus.OK);
+    }
+    @GetMapping("/merchant/{id}")
+    public ResponseEntity<Iterable<Product>> findAllByMerchant(@PathVariable Long id){
+        List<Product> products=(List<Product>) productService.findAllByDeleteFlagAndMerchant(id);
+        if (products.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
 }
 

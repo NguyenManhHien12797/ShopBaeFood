@@ -35,8 +35,9 @@ public class ProductService implements IProductService<Product> {
 
     }
 
+
     @Override
-    public List<Product> findAllProductByDeleteFlagIsTrue() {
-        return productRepository.findAllProductByDeleteFlagIsTrue();
+    public Iterable<Product> findAllByDeleteFlagAndMerchant(Long id) {
+        return productRepository.getAllByDeleteFlagTrueAndMerchant(id);
     }
 }

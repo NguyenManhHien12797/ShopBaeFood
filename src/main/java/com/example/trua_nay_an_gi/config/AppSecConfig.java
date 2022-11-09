@@ -62,6 +62,7 @@ public class AppSecConfig extends WebSecurityConfigurerAdapter {
             configuration.addAllowedMethod(HttpMethod.POST);
             configuration.addAllowedMethod(HttpMethod.PUT);
             configuration.addAllowedMethod(HttpMethod.HEAD);
+            configuration.addAllowedMethod(HttpMethod.PATCH);
             return configuration;
         });
     }
