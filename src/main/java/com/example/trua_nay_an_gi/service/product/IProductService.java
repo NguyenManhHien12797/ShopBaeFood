@@ -9,4 +9,5 @@ import java.util.List;
 @Service
 public interface IProductService<P> extends GeneralService<Product> {
     Iterable<Product> findAllByDeleteFlagAndMerchant(Long id);
+    List<Product> finallProductbydeleteflagTrue();
 }

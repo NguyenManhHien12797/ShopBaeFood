@@ -21,7 +21,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> finAll() {
-        List<Product> products = (List<Product>) productService.findAll();
+        List<Product> products = productService.finallProductbydeleteflagTrue();
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

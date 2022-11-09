@@ -11,4 +11,6 @@ import java.util.List;
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
     @Query(value = "select * from Product as p where p.delete_flag = true and p.merchant_id = ?1", nativeQuery = true)
     Iterable<Product> getAllByDeleteFlagTrueAndMerchant(Long id);
+    @Query(value = "select * from Product as p where p.delete_flag = true", nativeQuery = true)
+    List<Product> finallProductdeleteflagTrue();
 }
