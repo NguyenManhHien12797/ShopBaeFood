@@ -2,16 +2,16 @@ package com.example.trua_nay_an_gi.controller;
 
 import com.example.trua_nay_an_gi.jwt.JwtUtility;
 import com.example.trua_nay_an_gi.model.app_users.Account;
-import com.example.trua_nay_an_gi.model.app_users.AccountRoleMap;
-import com.example.trua_nay_an_gi.model.app_users.AppRoles;
-import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.dto.AccountRegisterDTO;
 import com.example.trua_nay_an_gi.model.dto.AccountToken;
 import com.example.trua_nay_an_gi.payload.request.LoginRequest;
+import com.example.trua_nay_an_gi.payload.response.MessageResponse;
 import com.example.trua_nay_an_gi.service.account.AccountDetails;
 import com.example.trua_nay_an_gi.service.account.AccountService;
-import com.example.trua_nay_an_gi.service.account_role.AccountRoleService;
-import org.springframework.beans.BeanUtils;
+import com.example.trua_nay_an_gi.service.account.IAccountService;
+import com.example.trua_nay_an_gi.service.account_role.IRoleService;
+import com.example.trua_nay_an_gi.service.account_role.RoleService;
+import com.example.trua_nay_an_gi.service.app_users.IAppUserSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -42,10 +40,13 @@ public class LoginSiginController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private AccountService accountService;
+    private IAccountService accountService;
 
     @Autowired
-    AccountRoleService accountRoleService;
+    private IRoleService roleService;
+
+    @Autowired
+    private IAppUserSevice userSevice;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -60,27 +61,34 @@ public class LoginSiginController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtUtility.createJwTToken(loginRequest.getUsername());
             AccountDetails userDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            List<String>roles= userDetails.getAuthorities().stream()
+            List<String> roles = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
             Account account = accountService.findByName(loginRequest.getUsername());
 
 
-            return new ResponseEntity(new AccountToken(account.getId(), account.getUserName(), token,roles, account.getMerchant()), HttpStatus.OK);
+            return new ResponseEntity(new AccountToken(account.getId(), account.getUserName(), token, roles, account.getMerchant()), HttpStatus.OK);
 
         } catch (Exception e) {
             return null;
         }
     }
+
     @PostMapping("/register")
-    public ResponseEntity<Account> addUser(@RequestBody AccountRegisterDTO request){
+    public ResponseEntity<?> addUser(@RequestBody AccountRegisterDTO request) {
+        if (accountService.existsAccountByUserName(request.getUserName())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Username đã được đăng ký"));
+        }
 
-          Account account = new Account(request.getUserName(), request.getPassword());
-
-
-
-
-        return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+        Account account = new Account(request.getUserName(), request.getPassword(), request.getEmail());
+        accountService.save(account);
+        Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
+        roleService.setDefaultRole(idAccountAfterCreated, 2);
+        String avatar = "https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg";
+        userSevice.saveUserToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),idAccountAfterCreated);
+        return ResponseEntity.ok(new MessageResponse("Đăng ký tài khoản thành công"));
     }
 }
 

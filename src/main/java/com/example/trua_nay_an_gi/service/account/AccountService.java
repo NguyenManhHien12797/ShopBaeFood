@@ -47,6 +47,16 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public Long findIdUserByUserName(String username) {
+        return accountRepository.findIdUserByUserName(username);
+    }
+
+    @Override
+    public boolean existsAccountByUserName(String username) {
+        return accountRepository.existsAccountByUserName(username);
+    }
+
+    @Override
     public Set<AppRoles> findAppRoleByAccountId(Long id) {
         List<String> roles = accountRepository.findAppRoleByAccountId(id);
         Set<AppRoles> rolesSet = new HashSet<>();
