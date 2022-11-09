@@ -20,7 +20,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String shortDecription;
+    private String shortDescription;
     private String numberOrder;
     private Double oldPrice;
     private Double newPrice;
