@@ -13,4 +13,8 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     Iterable<Product> getAllByDeleteFlagTrueAndMerchant(Long id);
     @Query(value = "select * from Product as p where p.delete_flag = true", nativeQuery = true)
     List<Product> finallProductdeleteflagTrue();
+
+    @Query(value = "select * from Product p where p.delete_flag = true and p.merchant_id = ?1 and p.name like concat('%', ?2, '%')", nativeQuery = true)
+    List<Product> fAllByDeleFlagTAndMerAndNameContai(Long id,String name);
+
 }
