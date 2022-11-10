@@ -24,7 +24,4 @@ public class Cart {
     @OneToOne
     private AppUser user;
 
-    @OneToMany(mappedBy = "cart")
-    @JsonBackReference
-    private Set<ProductCartMap> productCartMapSet;
 }
