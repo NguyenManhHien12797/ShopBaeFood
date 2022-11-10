@@ -118,5 +118,5 @@ public class SecurityController {
         merchantService.saveMerchantToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),status,idAccountAfterCreated);
         return ResponseEntity.ok(new MessageResponse("Đăng ký tài khoản thành công"));
     }
-}g
+}
 
