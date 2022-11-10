@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/api/coupons")
+@RequestMapping("/api/merchant/coupons")
 public class CouponController {
     @Autowired
     CouponService couponService;
@@ -52,7 +52,7 @@ public class CouponController {
         return new ResponseEntity<>(couponService.save(coupon),HttpStatus.CREATED);
     }
 
-    @PatchMapping("/merchant/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Coupon> disableCoupon (@PathVariable Long id ){
         Optional<Coupon> couponOptional = couponService.findById(id);
         if (!couponOptional.isPresent()){
