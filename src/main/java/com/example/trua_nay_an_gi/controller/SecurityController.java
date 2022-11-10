@@ -77,7 +77,7 @@ public class SecurityController {
             return new ResponseEntity(new AccountToken(account.getId(), account.getUserName(), token, roles, account.getMerchant()), HttpStatus.OK);
 
         } catch (Exception e) {
-            return null;
+            return ResponseEntity.ok(new MessageResponse("Sai roi"));
         }
     }
 

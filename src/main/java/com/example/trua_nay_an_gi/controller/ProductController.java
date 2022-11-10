@@ -35,6 +35,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         product.setId(products.get().getId());
+        product.setMerchant(products.get().getMerchant());
         return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
     }
 
