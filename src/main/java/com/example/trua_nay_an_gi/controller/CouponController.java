@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/api/merchant/coupons")
+@RequestMapping("/api/coupons")
 public class CouponController {
     @Autowired
     CouponService couponService;
@@ -28,37 +28,42 @@ public class CouponController {
         return new ResponseEntity<>(coupons, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Coupon> updateCoupon (@RequestBody Coupon coupon,@PathVariable Long id ) {
+    @PutMapping("/merchant/{id}")
+    public ResponseEntity<Coupon> updateCoupon(@RequestBody Coupon coupon, @PathVariable Long id) {
         Optional<Coupon> coupons = couponService.findById(id);
-        if (!coupons.isPresent()){
+        if (!coupons.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         coupon.setId(coupons.get().getId());
-        return new ResponseEntity<>(couponService.save(coupon),HttpStatus.OK);
+        return new ResponseEntity<>(couponService.save(coupon), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/merchant/{id}")
     public ResponseEntity<Coupon> findById(@PathVariable Long id) {
         Optional<Coupon> couponOptional = couponService.findById(id);
-        if (!couponOptional.isPresent()){
+        if (!couponOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(couponOptional.get(),HttpStatus.OK);
+        return new ResponseEntity<>(couponOptional.get(), HttpStatus.OK);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Coupon> saveCoupon(@RequestBody  Coupon coupon) {
-        return new ResponseEntity<>(couponService.save(coupon),HttpStatus.CREATED);
+    @PostMapping("/merchant/{id}")
+    public ResponseEntity<Coupon> saveCoupon(@RequestBody Coupon coupon) {
+        return new ResponseEntity<>(couponService.save(coupon), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Coupon> disableCoupon (@PathVariable Long id ){
+    @PatchMapping("/merchant/{id}")
+    public ResponseEntity<Coupon> disableCoupon(@PathVariable Long id) {
         Optional<Coupon> couponOptional = couponService.findById(id);
-        if (!couponOptional.isPresent()){
+        if (!couponOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         couponOptional.get().setDeleteFlag(false);
-        return new ResponseEntity<>(couponService.save(couponOptional.get()),HttpStatus.OK);
+        return new ResponseEntity<>(couponService.save(couponOptional.get()), HttpStatus.OK);
+    }
+
+    @PostMapping("/user/{id}")
+    public ResponseEntity<Coupon> saveUserCoupon(@RequestBody Coupon coupon) {
+        return new ResponseEntity<>(couponService.save(coupon), HttpStatus.CREATED);
     }
 }
