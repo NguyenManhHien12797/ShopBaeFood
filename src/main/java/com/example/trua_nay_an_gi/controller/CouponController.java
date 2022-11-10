@@ -2,6 +2,7 @@ package com.example.trua_nay_an_gi.controller;
 
 
 import com.example.trua_nay_an_gi.model.product.Coupon;
+import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.service.coupon.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,14 +15,17 @@ import java.util.Optional;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/api/Coupons")
+@RequestMapping("/api/coupons")
 public class CouponController {
     @Autowired
     CouponService couponService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Coupon>> finAll() {
-        Iterable<Coupon> coupons = couponService.findAll();
+    public ResponseEntity<List<Coupon>> finAll() {
+        List<Coupon> coupons = couponService.finallCouponDeleteflagTrue();
+        if (coupons.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(coupons, HttpStatus.OK);
     }
 
