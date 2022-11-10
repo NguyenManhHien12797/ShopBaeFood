@@ -58,15 +58,15 @@ public class SecurityController {
         try {
             // Tạo ra 1 đối tượng Authentication.
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            String token = jwtUtility.createJwTToken(loginRequest.getUsername());
+            String token = jwtUtility.createJwTToken(loginRequest.getUserName());
             AccountDetails userDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             List<String> roles = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
-            Account account = accountService.findByName(loginRequest.getUsername());
+            Account account = accountService.findByName(loginRequest.getUserName());
             if(account.getMerchant() != null){
                 String status= account.getMerchant().getStatus();
                 if("pending".equals(status)){

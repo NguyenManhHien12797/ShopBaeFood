@@ -20,11 +20,4 @@ public class Category {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    @JsonBackReference
-    private Set<ProductCategoryMap> productCategoryMapSet;
-
-    @OneToMany(mappedBy = "category")
-    @JsonBackReference
-    private Set<MerchantCategoryMap> merchantCategoryMaps;
 }

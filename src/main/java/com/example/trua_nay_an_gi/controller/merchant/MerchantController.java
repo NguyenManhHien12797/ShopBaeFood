@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200/")
 @RequestMapping("/api/merchant")
 public class MerchantController {
     @Autowired
