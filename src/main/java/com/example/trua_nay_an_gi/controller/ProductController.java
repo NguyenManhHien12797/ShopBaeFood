@@ -60,6 +60,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+        product.setNumberOrder("0");
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
