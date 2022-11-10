@@ -5,6 +5,7 @@ import com.example.trua_nay_an_gi.service.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -52,12 +54,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/merchant/**").hasRole("MERCHANT")
+                .antMatchers("/api/merchant/**").hasAnyRole("MERCHANT","ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+        http.cors().configurationSource(c -> {
+            CorsConfiguration configuration = new CorsConfiguration();
+            configuration.applyPermitDefaultValues();
+            configuration.addAllowedOriginPattern("*");
+//            configuration.addAllowedMethod(CorsConfiguration.ALL);
+            configuration.addAllowedMethod(HttpMethod.DELETE);
+            configuration.addAllowedMethod(HttpMethod.GET);
+            configuration.addAllowedMethod(HttpMethod.POST);
+            configuration.addAllowedMethod(HttpMethod.PUT);
+            configuration.addAllowedMethod(HttpMethod.HEAD);
+            return configuration;
+        });
+
     }
 }
