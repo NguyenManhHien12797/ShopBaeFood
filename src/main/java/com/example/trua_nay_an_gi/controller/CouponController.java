@@ -2,7 +2,6 @@ package com.example.trua_nay_an_gi.controller;
 
 
 import com.example.trua_nay_an_gi.model.product.Coupon;
-import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.service.coupon.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +28,7 @@ public class CouponController {
         return new ResponseEntity<>(coupons, HttpStatus.OK);
     }
 
-    @PutMapping("/merchant/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Coupon> updateCoupon (@RequestBody Coupon coupon,@PathVariable Long id ) {
         Optional<Coupon> coupons = couponService.findById(id);
         if (!coupons.isPresent()){
@@ -39,7 +38,7 @@ public class CouponController {
         return new ResponseEntity<>(couponService.save(coupon),HttpStatus.OK);
     }
 
-    @GetMapping("/merchant/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Coupon> findById(@PathVariable Long id) {
         Optional<Coupon> couponOptional = couponService.findById(id);
         if (!couponOptional.isPresent()){
@@ -48,7 +47,7 @@ public class CouponController {
         return new ResponseEntity<>(couponOptional.get(),HttpStatus.OK);
     }
 
-    @PostMapping("/merchant/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<Coupon> saveCoupon(@RequestBody  Coupon coupon) {
         return new ResponseEntity<>(couponService.save(coupon),HttpStatus.CREATED);
     }
