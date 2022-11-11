@@ -20,23 +20,6 @@ import java.util.Optional;
 @RequestMapping("/api/orders")
 public class OrderController {
 
-//    @Autowired
-//    private IOrderService orderService;
-//
-//    @Autowired
-//    private IOrderDetailService orderDetailService;
-//
-//    @GetMapping
-//    public ResponseEntity<ResponseBody> findAll(){
-//        List<Order> orders = IterableUtils.toList(orderService.findAll());
-//        if (orders.isEmpty()) {
-//            return new ResponseEntity<>(new ResponseBody(Response.DATA_NOT_FOUND, null), HttpStatus.NOT_FOUND);
-//        }
-//        List<OrderDTO> orderDTOS = OrderMapper.INSTANCE.mapOrderListToDTO(orders);
-//        return new ResponseEntity<>(new ResponseBody(Response.SUCCESS, orderDTOS), HttpStatus.OK);
-//    }
-
-
     @Autowired
     IAppUserSevice userSevice;
 
