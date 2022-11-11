@@ -1,7 +1,9 @@
 package com.example.trua_nay_an_gi.controller;
 
+import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.product.Mail;
+import com.example.trua_nay_an_gi.service.account.IAccountService;
 import com.example.trua_nay_an_gi.service.app_users.AppUserService;
 import com.example.trua_nay_an_gi.service.mail.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/mail")
+@RequestMapping("/api/public/mail")
 public class EmailController {
     @Autowired
-    private AppUserService userService;
+    private IAccountService accountService;
     @Autowired
     private MailService mailService;
     // http://localhost:8080/mail/sender
@@ -30,6 +32,17 @@ public class EmailController {
         mail.setMailSubject("subject");
         mail.setMailContent("test");
 
+        mailService.sendEmail(mail);
+        return new ResponseEntity<>(mail, HttpStatus.OK);
+    }
+    @PostMapping("/forgotpass")
+    public ResponseEntity<Mail> fogotpass(@RequestParam String email){
+        Account account= accountService.findByEmail(email);
+        Mail mail = new Mail();
+        mail.setMailFrom("nguyenhuuquyet07092001@gmail.com");
+        mail.setMailTo(account.getEmail());
+        mail.setMailSubject("subject");
+        mail.setMailContent("Kính chào"+account.getUserName()+"\nPassword của bạn là: "+account.getPassword()+"\nĐồ ngu có cái pass cũng không nhớ nổi");
         mailService.sendEmail(mail);
         return new ResponseEntity<>(mail, HttpStatus.OK);
     }

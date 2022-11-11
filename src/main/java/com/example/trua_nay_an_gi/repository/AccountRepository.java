@@ -25,5 +25,6 @@ public interface AccountRepository extends PagingAndSortingRepository<Account,Lo
     Collection<GrantedAuthority> findRoleByAccountId(Long id);
     @Query(nativeQuery = true, value = "Select r.name FROM account as a JOIN account_role as ar ON a.id = ar.account_id JOIN app_roles as r on ar.role_id = r.id where a.id = ?1")
     List<String> findAppRoleByAccountId(Long id);
-
+    @Query("select a from account a where a.email = ?1")
+    Account findByEmail(String email);
 }

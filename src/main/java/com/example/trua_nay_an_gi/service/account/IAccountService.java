@@ -12,5 +12,5 @@ public interface IAccountService extends GeneralService<Account> {
 
     boolean existsAccountByUserName(String username);
     Set<AppRoles> findAppRoleByAccountId(Long id);
-
+    Account findByEmail(String email);
 }

@@ -65,6 +65,11 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public Account findByEmail(String email) {
+        return accountRepository.findByEmail(email);
+    }
+
+    @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account= accountRepository.findByUserName(username);
