@@ -9,11 +9,17 @@ import java.util.List;
 
 public interface IOrderService extends GeneralService<Order> {
 
-    OrderDto getOrderDto(Long orderId);
-
-    List<OrderDto> findAllOrderDtoByUserId(Long userId);
+//    OrderDto getOrderDto(Long orderId);
+//
+//    List<OrderDto> findAllOrderDtoByUserId(Long userId);
+//
+//    Iterable<Order> findAllByUserId(Long id);
+//
+//    Iterable<OrderDtoByOwner> findAllOrderDtoByOwnerId(Long ownerId);
 
     Iterable<Order> findAllByUserId(Long id);
 
-    Iterable<OrderDtoByOwner> findAllOrderDtoByOwnerId(Long ownerId);
+    Iterable<Order> findAllByMerchantId(Long id);
+    Iterable<Order> findByStatus(int status,Long id);
+
 }

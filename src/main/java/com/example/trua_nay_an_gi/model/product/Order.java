@@ -1,5 +1,6 @@
 package com.example.trua_nay_an_gi.model.product;
 
+import com.example.trua_nay_an_gi.constant.Constant;
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.delivery.Delivery;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,8 @@ public class Order {
 
     private Date createDate;
 
+    private Constant.OrderStatus status;
+
     @ManyToOne
     private Coupon coupon;
 
@@ -42,7 +45,7 @@ public class Order {
     @Column(columnDefinition = "VARCHAR(500)")
     private String shippingNote;
 
-    @Column(columnDefinition = "TINYINT default 0")
-    private int status;
+//    @Column(columnDefinition = "TINYINT default 0")
+//    private int status;
 
 }

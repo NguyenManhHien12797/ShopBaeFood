@@ -124,5 +124,4 @@ public class CartController {
         CartDto cartDto = cartService.addProductToCart(currentUser, cartDetailDto);
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
-
 }

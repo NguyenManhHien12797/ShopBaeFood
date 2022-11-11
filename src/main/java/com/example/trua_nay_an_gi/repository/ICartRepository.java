@@ -13,4 +13,5 @@ public interface ICartRepository extends JpaRepository<Cart, Long> {
     Optional<Cart> findCartByUserAndMerchant(AppUser appUser, Merchant merchant);
 
     Iterable<Cart> findCartByUser(AppUser appUser);
+
 }

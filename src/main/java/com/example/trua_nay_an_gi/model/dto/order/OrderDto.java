@@ -1,20 +1,31 @@
 package com.example.trua_nay_an_gi.model.dto.order;
 
-import com.example.trua_nay_an_gi.model.app_users.Merchant;
-import com.example.trua_nay_an_gi.model.delivery.Delivery;
-import com.example.trua_nay_an_gi.model.dto.cart.CartDto;
-import lombok.AllArgsConstructor;
+import com.example.trua_nay_an_gi.constant.Constant;
+import com.example.trua_nay_an_gi.model.app_users.AppUser;
+import com.example.trua_nay_an_gi.model.dto.MerchantDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 public class OrderDto {
     private Long id;
-    private CartDto cart;
-    private Delivery delivery;
-    private Merchant merchant;
-    private Date createDate;
-    private int status;
+    private LocalDateTime orderTime;
+    private Constant.OrderStatus status;
+    private String address;
+    private Float beforeDiscountAmount;
+    private Float discountAmount;
+    private Float paidAmount;
+    private AppUser appUser;
+    private MerchantDto merchant;
+
+    public OrderDto(Long id, LocalDateTime orderTime, Constant.OrderStatus status, AppUser appUser, MerchantDto merchant) {
+        this.id = id;
+        this.orderTime = orderTime;
+        this.status = status;
+        this.appUser = appUser;
+        this.merchant = merchant;
+    }
 }
