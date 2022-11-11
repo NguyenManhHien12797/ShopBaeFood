@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/api/products")
+@RequestMapping("/api")
 @CrossOrigin("*")
 public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping
+    @GetMapping("/public/products")
     public ResponseEntity<List<Product>> finAll() {
         List<Product> products = productService.finallProductbydeleteflagTrue();
         if (products.isEmpty()) {
@@ -28,7 +28,7 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/products/{id}")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id) {
         Optional<Product> products = productService.findById(id);
         if (!products.isPresent()) {
@@ -39,7 +39,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/public/products/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()) {
@@ -58,13 +58,13 @@ public class ProductController {
 //        return new ResponseEntity<>(productOptional.get(),HttpStatus.NO_CONTENT);
 //    }
 
-    @PostMapping
+    @PostMapping("/products")
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
         product.setNumberOrder("0");
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/products/{id}")
     public ResponseEntity<Product> disableProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()) {
@@ -73,7 +73,7 @@ public class ProductController {
         productOptional.get().setDeleteFlag(false);
         return new ResponseEntity<>(productService.save(productOptional.get()), HttpStatus.OK);
     }
-    @GetMapping("/merchant/{id}")
+    @GetMapping("/public/products/merchant/{id}")
     public ResponseEntity<Iterable<Product>> findAllByMerchant(@PathVariable Long id){
         List<Product> products=(List<Product>) productService.findAllByDeleteFlagAndMerchant(id);
         if (products.isEmpty()){
@@ -81,7 +81,7 @@ public class ProductController {
         }
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
-    @GetMapping("/search/{id}")
+    @GetMapping("/public/products/search/{id}")
     public ResponseEntity<Iterable<Product>> findAllByMerchantAndName(@PathVariable Long id,@RequestParam String name){
         List<Product> products = productService.fAllByDeleFlagTAndMerAndNameContai(id,name);
         if (products.isEmpty()){

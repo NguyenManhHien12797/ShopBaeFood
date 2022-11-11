@@ -1,5 +1,6 @@
 package com.example.trua_nay_an_gi.model.dto;
 
+import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.app_users.Merchant;
 import lombok.Builder;
 
@@ -14,13 +15,15 @@ public class AccountToken {
     private List<String> roles;
 
     private Merchant merchant;
+    private AppUser user;
 
-    public AccountToken(long id, String username, String token, List<String> roles, Merchant merchant) {
+    public AccountToken(long id, String username, String token, List<String> roles, Merchant merchant, AppUser user) {
         this.id = id;
         this.username = username;
         this.token = token;
         this.roles = roles;
         this.merchant = merchant;
+        this.user = user;
     }
 
     public AccountToken() {
@@ -64,5 +67,13 @@ public class AccountToken {
 
     public void setMerchant(Merchant merchant) {
         this.merchant = merchant;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 }
