@@ -15,7 +15,7 @@ public interface AppUserRepository extends PagingAndSortingRepository<AppUser,Lo
 
  Optional<AppUser> findByName(String username);
 
- AppUser findByName(String name);
+// AppUser findByName(String name);
 
  @Modifying
  @Transactional

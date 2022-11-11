@@ -8,12 +8,11 @@ import java.util.Optional;
 
 public interface IAppUserSevice extends GeneralService<AppUser>{
 boolean existByName(String name);
-    Optional<AppUser> findByUsername(String username);
-public interface IAppUserSevice extends GeneralService<AppUser> {
-    boolean existByName(String name);
-
-    AppUser findByUserName(String name);
+    Optional<AppUser> findByUsername(String name);
+//public interface IAppUserSevice extends GeneralService<AppUser> {
+//    boolean existByName(String name);
+//
+//    AppUser findByUserName(String name);
 
     void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id);
-}
 }
