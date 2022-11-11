@@ -20,8 +20,12 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class OrderService implements IOrderService {
+
     @Autowired
-    private IOrderRepository orderRepository;
+    IOrderRepository orderRepository;
+
+    @Autowired
+    IOrderDetailService orderDetailService;
 
     @Override
     public Iterable<Order> findAll() {
@@ -44,17 +48,54 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public OrderDto getOrderDto(Long orderId) {
+        Optional<Order> findOrder = findById(orderId);
+        if (!findOrder.isPresent()) {
+            return null;
+        }
+
+        Order order = findOrder.get();
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(orderId);
+        orderDto.setDelivery(order.getDelivery());
+        orderDto.setStatus(order.getStatus());
+
+        CartDto cartDto = new CartDto();
+        Iterable<OrderDetail> orderDetails = orderDetailService.findAllByOrder(order);
+        List<OrderDetail> orderDetailList =
+                StreamSupport.stream(orderDetails.spliterator(), false)
+                        .collect(Collectors.toList());
+        for (OrderDetail orderDetail : orderDetailList) {
+            CartDetailDto cartDetailDto = new CartDetailDto(orderDetail.getProduct(), orderDetail.getQuantity());
+            cartDto.addCartDetailDto(cartDetailDto);
+        }
+        orderDto.setCart(cartDto);
+
+        Merchant merchant = orderDetailList.get(0).getProduct().getMerchant();
+        orderDto.setMerchant(merchant);
+        orderDto.setCreateDate(order.getCreateDate());
+        return orderDto;
+    }
+    @Override
+    public List<OrderDto> findAllOrderDtoByUserId(Long userId) {
+        Iterable<Order> orders = orderRepository.findAllByAppUser_IdOrderByCreateDateDesc(userId);
+        List<OrderDto> orderDtos = new ArrayList<>();
+
+        for (Order order : orders) {
+            OrderDto orderDto = getOrderDto(order.getId());
+            orderDtos.add(orderDto);
+        }
+
+        return orderDtos;
+    }
+
+    @Override
     public Iterable<Order> findAllByUserId(Long id) {
-        return orderRepository.findAllByUserId(id);
+        return orderRepository.findAllByAppUser_IdOrderByCreateDateDesc(id);
     }
 
     @Override
-    public Iterable<Order> findAllByMerchantId(Long id) {
-        return orderRepository.findAllByMerchantId(id);
-    }
-
-    @Override
-    public Iterable<Order> findByStatus(int status,Long id) {
-        return orderRepository.findAllByStatusAndMerchantId(status,id);
+    public Iterable<OrderDtoByOwner> findAllOrderDtoByOwnerId(Long ownerId) {
+        return orderRepository.findOrderByOwnerIdOrderByCreateDateDesc(ownerId);
     }
 }

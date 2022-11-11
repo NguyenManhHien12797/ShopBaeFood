@@ -16,7 +16,13 @@ import java.util.Optional;
 public class OrderDetailService implements IOrderDetailService {
 
     @Autowired
-    private IOrderDetailRepository orderDetailRepository;
+    IOrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    IOrderRepository orderRepository;
+
+    @Autowired
+    IOrderService orderService;
 
     @Override
     public Iterable<OrderDetail> findAll() {
@@ -39,7 +45,32 @@ public class OrderDetailService implements IOrderDetailService {
     }
 
     @Override
-    public Iterable<OrderDetail> findAllByOrderId(Long id) {
-        return orderDetailRepository.findAllByOrderId(id);
+    public Iterable<OrderDetail> findAllByOrder(Order order) {
+        return orderDetailRepository.findAllByOrder(order);
+    }
+
+    @Override
+    public Iterable<OrderDetail> findAllByProductId(Long id) {
+        return orderDetailRepository.findAllByProductId(id);
+    }
+
+    @Override
+    public Iterable<Order> findAllOrderByProductId(Long id) {
+        List<OrderDetail> orderDetails = (List<OrderDetail>) findAllByProductId(id);
+        List<Long> ordersIds = new ArrayList<>();
+        for (OrderDetail orderDetail: orderDetails) {
+            Long orderId = orderDetail.getOrder().getId();
+            if (!ordersIds.contains(orderId)){
+                ordersIds.add(orderId);
+            }
+        }
+        List<Order> orders = new ArrayList<>();
+        for (Long orderId : ordersIds) {
+            Optional<Order> findOrder = orderService.findById(orderId);
+            if (findOrder.isPresent()){
+                orders.add(findOrder.get());
+            }
+        }
+        return orders;
     }
 }

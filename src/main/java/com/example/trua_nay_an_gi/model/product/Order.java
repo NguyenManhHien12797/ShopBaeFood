@@ -26,7 +26,7 @@ public class Order {
 
     private Date createDate;
 
-    private Constant.OrderStatus status;
+//    private Constant.OrderStatus status;
 
     @ManyToOne
     private Coupon coupon;
@@ -45,7 +45,6 @@ public class Order {
     @Column(columnDefinition = "VARCHAR(500)")
     private String shippingNote;
 
-//    @Column(columnDefinition = "TINYINT default 0")
-//    private int status;
-
+    @Column(columnDefinition = "TINYINT default 0")
+    private int status;
 }
