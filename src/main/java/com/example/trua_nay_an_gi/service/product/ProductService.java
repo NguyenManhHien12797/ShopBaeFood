@@ -46,5 +46,10 @@ public class ProductService implements IProductService<Product> {
         return productRepository.finallProductdeleteflagTrue();
     }
 
+    @Override
+    public List<Product> fAllByDeleFlagTAndMerAndNameContai(Long id, String name) {
+        return productRepository.fAllByDeleFlagTAndMerAndNameContai(id,name);
+    }
+
 
 }

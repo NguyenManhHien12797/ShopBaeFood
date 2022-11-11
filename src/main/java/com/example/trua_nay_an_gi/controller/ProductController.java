@@ -60,6 +60,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+        product.setNumberOrder("0");
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
@@ -75,6 +76,14 @@ public class ProductController {
     @GetMapping("/merchant/{id}")
     public ResponseEntity<Iterable<Product>> findAllByMerchant(@PathVariable Long id){
         List<Product> products=(List<Product>) productService.findAllByDeleteFlagAndMerchant(id);
+        if (products.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products,HttpStatus.OK);
+    }
+    @GetMapping("/search/{id}")
+    public ResponseEntity<Iterable<Product>> findAllByMerchantAndName(@PathVariable Long id,@RequestParam String name){
+        List<Product> products = productService.fAllByDeleFlagTAndMerAndNameContai(id,name);
         if (products.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
