@@ -25,13 +25,10 @@ public class Cart {
     @OneToOne
     private AppUser user;
 
-<<<<<<< HEAD
     @OneToOne
     private Merchant merchant;
 
     @OneToMany(mappedBy = "cart")
     @JsonBackReference
     private Set<ProductCartMap> productCartMapSet;
-=======
->>>>>>> dev
 }
