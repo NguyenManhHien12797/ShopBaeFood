@@ -18,4 +18,6 @@ public interface IMerchantService extends GeneralService<Merchant> {
 //    Iterable<OrderByQueryDto> finAllMerchantOrderByCustomerId (Long merchantId, Long userId);
 //
 //    Iterable<OrderByQueryDto> finAllOrderByMerchantIdInPeriod (Long id, LocalDate startTime, LocalDate endTime);
+
+    void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID);
 }

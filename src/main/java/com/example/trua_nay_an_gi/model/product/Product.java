@@ -34,10 +34,6 @@ public class Product {
     @JsonBackReference
     private Merchant merchant;
 
-    @OneToMany(mappedBy = "product")
-    @JsonManagedReference
-    private Set<ProductCategoryMap> productCategoryMapSet;
-    @OneToMany(mappedBy = "product")
-    private Set<ProductCartMap> productCartMapSet;
+
 
 }

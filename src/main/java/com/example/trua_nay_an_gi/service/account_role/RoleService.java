@@ -1,16 +1,15 @@
 package com.example.trua_nay_an_gi.service.account_role;
 
-import com.example.trua_nay_an_gi.model.app_users.AccountRoleMap;
 import com.example.trua_nay_an_gi.model.app_users.AppRoles;
-import com.example.trua_nay_an_gi.repository.AccountRoleRepository;
+import com.example.trua_nay_an_gi.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-public class AccountRoleService implements IAccountRole{
+public class RoleService implements IRoleService {
 @Autowired
-    AccountRoleRepository accountRoleRepository;
+RoleRepository accountRoleRepository;
 
 
     @Override
@@ -37,4 +36,11 @@ public class AccountRoleService implements IAccountRole{
     public Optional<AppRoles> findByName(String name) {
         return accountRoleRepository.findByName(name);
     }
+
+    @Override
+    public void setDefaultRole(Long accountId, Integer roleId) {
+        accountRoleRepository.setDefaultRole(accountId,roleId);
+    }
+
+
 }

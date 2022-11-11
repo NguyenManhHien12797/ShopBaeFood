@@ -25,4 +25,7 @@ public class Coupon {
     @OneToMany(mappedBy = "coupon")
     @JsonBackReference
     private Set<MerchantCouponMap> merchantCouponMapSet;
+
+    @Column(name = "deleteFlag", columnDefinition = "boolean default true")
+    private boolean deleteFlag;
 }

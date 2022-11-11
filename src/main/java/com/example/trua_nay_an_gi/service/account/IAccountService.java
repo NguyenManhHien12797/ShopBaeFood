@@ -8,6 +8,9 @@ import java.util.Set;
 
 public interface IAccountService extends GeneralService<Account> {
     Account findByName(String name);
+    Long findIdUserByUserName(String username);
+
+    boolean existsAccountByUserName(String username);
     Set<AppRoles> findAppRoleByAccountId(Long id);
 
 }
