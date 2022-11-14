@@ -1,6 +1,7 @@
 package com.example.trua_nay_an_gi.model.app_users;
 
 import com.example.trua_nay_an_gi.model.product.Cart;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,5 +20,6 @@ public class AppUser {
     private String avatar;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
+    @JsonBackReference
     private Account account;
 }

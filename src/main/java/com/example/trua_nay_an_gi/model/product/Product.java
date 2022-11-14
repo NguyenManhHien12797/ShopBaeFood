@@ -20,11 +20,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String shortDecription;
+    private String shortDescription;
     private String numberOrder;
     private Double oldPrice;
     private Double newPrice;
     private String image;
+    private int quantity;
+
     @Column(name = "deleteFlag", columnDefinition = "boolean default true")
     private boolean deleteFlag;
 
@@ -33,10 +35,5 @@ public class Product {
     @JsonBackReference
     private Merchant merchant;
 
-    @OneToMany(mappedBy = "product")
-    @JsonManagedReference
-    private Set<ProductCategoryMap> productCategoryMapSet;
-    @OneToMany(mappedBy = "product")
-    private Set<ProductCartMap> productCartMapSet;
 
 }

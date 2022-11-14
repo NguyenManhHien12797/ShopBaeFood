@@ -46,4 +46,9 @@ public class AppUserService implements IAppUserSevice {
     public AppUser findByUserName(String name) {
         return appUserRepository.findByName(name);
     }
+
+    @Override
+    public void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id) {
+        appUserRepository.saveUserToRegister(address,avatar,name,phone,account_id);
+    }
 }

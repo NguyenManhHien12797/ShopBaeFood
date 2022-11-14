@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/api/merchant")
+@CrossOrigin("http://localhost:4200/")
+@RequestMapping("/api")
 public class MerchantController {
     @Autowired
     private IMerchantService merchantService;
 
-    @GetMapping
+    @GetMapping("/public/merchant")
     public ResponseEntity<Iterable<Merchant>> findAllMerchant(){
         Iterable<Merchant> merchants = merchantService.findAll();
         return new ResponseEntity<>(merchants, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/merchant/{id}")
     public ResponseEntity<Merchant> updateMerchant (@PathVariable Long id,@RequestBody Merchant merchant){
         Optional<Merchant> merchantOptional = merchantService.findById(id);
         if(!merchantOptional.isPresent()){
@@ -34,7 +34,7 @@ public class MerchantController {
         return new ResponseEntity<>(merchantService.save(merchant),HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/public/merchant/{id}")
     public ResponseEntity<Merchant> findById(@PathVariable Long id) {
         Optional<Merchant> merchantOptional = merchantService.findById(id);
         if (!merchantOptional.isPresent()) {
@@ -53,29 +53,29 @@ public class MerchantController {
 //        return new ResponseEntity<>(merchantService.save(newMerchant), HttpStatus.OK);
 //    }
 //
-    @PutMapping("/editMerchant/{id}")
-    public ResponseEntity<Merchant> updateInformationMerchant(@PathVariable Long id, @RequestBody Merchant merchant) {
-        Optional<Merchant> merchantOptional = merchantService.findById(id);
-        if (!merchantOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        Merchant newMerchant = merchantOptional.get();
-        newMerchant.setId(id);
-        newMerchant.setName(merchant.getName());
-//        newMerchant.setDescription(merchant.getDescription());
-        newMerchant.setAddress(merchant.getAddress());
-        newMerchant.setPhone(merchant.getPhone());
-        newMerchant.setOpenTime(merchant.getOpenTime());
-        newMerchant.setCloseTime(merchant.getCloseTime());
-        return new ResponseEntity<>(merchantService.save(newMerchant), HttpStatus.OK);
-    }
+//    @PutMapping("/editMerchant/{id}")
+//    public ResponseEntity<Merchant> updateInformationMerchant(@PathVariable Long id, @RequestBody Merchant merchant) {
+//        Optional<Merchant> merchantOptional = merchantService.findById(id);
+//        if (!merchantOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        Merchant newMerchant = merchantOptional.get();
+//        newMerchant.setId(id);
+//        newMerchant.setName(merchant.getName());
+////        newMerchant.setDescription(merchant.getDescription());
+//        newMerchant.setAddress(merchant.getAddress());
+//        newMerchant.setPhone(merchant.getPhone());
+//        newMerchant.setOpenTime(merchant.getOpenTime());
+//        newMerchant.setCloseTime(merchant.getCloseTime());
+//        return new ResponseEntity<>(merchantService.save(newMerchant), HttpStatus.OK);
+//    }
 
-    @PostMapping("create")
+    @PostMapping("/merchant")
     public ResponseEntity<Merchant> saveMerchant(@RequestBody Merchant merchant) {
         return new ResponseEntity<>(merchantService.save(merchant), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/merchant/{id}")
     public ResponseEntity<Merchant> deleteMerchant(@PathVariable Long id) {
         Optional<Merchant> merchantOptional = merchantService.findById(id);
         if (!merchantOptional.isPresent()) {

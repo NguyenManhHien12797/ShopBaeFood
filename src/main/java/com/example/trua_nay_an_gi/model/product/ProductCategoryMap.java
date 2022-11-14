@@ -18,12 +18,13 @@ public class ProductCategoryMap {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "category_id")
-//    @JsonBackReference
     private Category category;
     @ManyToOne
     @JoinColumn(name = "product_id")
     @JsonBackReference
     private Product product;
+
+
 
 
 }

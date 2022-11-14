@@ -2,14 +2,16 @@ package com.example.trua_nay_an_gi.service.account;
 
 import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.app_users.AppRoles;
+import com.example.trua_nay_an_gi.model.app_users.Merchant;
+import com.example.trua_nay_an_gi.model.dto.MerchantDTO;
 import com.example.trua_nay_an_gi.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +48,16 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public Long findIdUserByUserName(String username) {
+        return accountRepository.findIdUserByUserName(username);
+    }
+
+    @Override
+    public boolean existsAccountByUserName(String username) {
+        return accountRepository.existsAccountByUserName(username);
+    }
+
+    @Override
     public Set<AppRoles> findAppRoleByAccountId(Long id) {
         List<String> roles = accountRepository.findAppRoleByAccountId(id);
         Set<AppRoles> rolesSet = new HashSet<>();
@@ -54,9 +66,20 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public Optional<Account> findAccByMerchantId(Long id) {
+        return accountRepository.findAccByMerchantId(id);
+    }
+
+    @Override
+    public String findEmailByMerchantID(Long id) {
+        return accountRepository.findEmailByMerchantID(id);
+    }
+
+    @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account= accountRepository.findByUserName(username);
-        return new User(account.getUserName(), account.getPassword(), accountRepository.findRoleByAccountId(account.getId()));
+        return AccountDetails.build(account);
     }
 
 }

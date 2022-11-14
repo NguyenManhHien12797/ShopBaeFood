@@ -1,22 +1,29 @@
 package com.example.trua_nay_an_gi.model.dto;
 
-import com.example.trua_nay_an_gi.model.app_users.AppRoles;
+import com.example.trua_nay_an_gi.model.app_users.AppUser;
+import com.example.trua_nay_an_gi.model.app_users.Merchant;
 import lombok.Builder;
 
-import java.util.Set;
+import java.util.List;
+
 @Builder
 public class AccountToken {
     private long id;
     private String username;
     private String token;
 
-    private Set<AppRoles> roles;
+    private List<String> roles;
 
-    public AccountToken(long id, String username, String token, Set<AppRoles> roles) {
+    private Merchant merchant;
+    private AppUser user;
+
+    public AccountToken(long id, String username, String token, List<String> roles, Merchant merchant, AppUser user) {
         this.id = id;
         this.username = username;
         this.token = token;
         this.roles = roles;
+        this.merchant = merchant;
+        this.user = user;
     }
 
     public AccountToken() {
@@ -46,11 +53,27 @@ public class AccountToken {
         this.token = token;
     }
 
-    public Set<AppRoles> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<AppRoles> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public Merchant getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(Merchant merchant) {
+        this.merchant = merchant;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 }
