@@ -47,7 +47,7 @@ public class EmailController {
         mail.setMailFrom("nguyenhuuquyet07092001@gmail.com");
         mail.setMailTo(email);
         mail.setMailSubject("Mail xác nhận đăng ký");
-        mail.setMailContent("Dear "+name+"! Cảm ơn bạn đã đăng ký làm merchant của hệ thống");
+        mail.setMailContent("Dear "+name+"! Cảm ơn bạn đã đăng ký làm thành viên của hệ thống");
 
         mailService.sendEmail(mail);
         return new ResponseEntity<>(mail, HttpStatus.OK);
