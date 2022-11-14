@@ -98,7 +98,7 @@ public class SecurityController {
 
         userSevice.saveUserToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),idAccountAfterCreated);
         return ResponseEntity.ok(new MessageResponse("Đăng ký tài khoản thành công"));
-    }
+            }
 
     @PostMapping("/register/merchant")
     public ResponseEntity<?> addMerchant(@RequestBody AccountRegisterDTO request) {

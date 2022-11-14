@@ -25,6 +25,7 @@ public class Product {
     private Double oldPrice;
     private Double newPrice;
     private String image;
+    private int quantity;
 
     @Column(name = "deleteFlag", columnDefinition = "boolean default true")
     private boolean deleteFlag;
@@ -33,7 +34,6 @@ public class Product {
     @JoinColumn(name = "merchant_id")
     @JsonBackReference
     private Merchant merchant;
-
 
 
 }

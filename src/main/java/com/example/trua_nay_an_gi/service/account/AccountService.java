@@ -2,9 +2,10 @@ package com.example.trua_nay_an_gi.service.account;
 
 import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.app_users.AppRoles;
+import com.example.trua_nay_an_gi.model.app_users.Merchant;
+import com.example.trua_nay_an_gi.model.dto.MerchantDTO;
 import com.example.trua_nay_an_gi.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -62,6 +63,16 @@ public class AccountService implements IAccountService, UserDetailsService {
         Set<AppRoles> rolesSet = new HashSet<>();
         roles.forEach(role -> rolesSet.add(new AppRoles(role)));
         return rolesSet;
+    }
+
+    @Override
+    public Optional<Account> findAccByMerchantId(Long id) {
+        return accountRepository.findAccByMerchantId(id);
+    }
+
+    @Override
+    public String findEmailByMerchantID(Long id) {
+        return accountRepository.findEmailByMerchantID(id);
     }
 
     @Override
