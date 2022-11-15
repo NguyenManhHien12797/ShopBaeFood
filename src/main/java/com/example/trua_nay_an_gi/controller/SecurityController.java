@@ -75,6 +75,9 @@ public class SecurityController {
                 if("block".equals(status)){
                     return ResponseEntity.ok(new MessageResponse("Tài khoản của bạn đang bị khóa"));
                 }
+                if("refuse".equals(status)){
+                    return ResponseEntity.ok(new MessageResponse("Admin đã từ chối đăng ký merchant"));
+                }
             }
 
             return new ResponseEntity(new AccountToken(account.getId(), account.getUserName(), token, roles, account.getMerchant(),account.getUser()), HttpStatus.OK);
