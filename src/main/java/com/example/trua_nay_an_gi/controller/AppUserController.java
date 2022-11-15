@@ -3,6 +3,7 @@ package com.example.trua_nay_an_gi.controller;
 import com.example.trua_nay_an_gi.model.app_users.AppRoles;
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.service.app_users.AppUserService;
+import com.example.trua_nay_an_gi.service.app_users.IAppUserSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import java.util.Set;
 @RequestMapping("/api/users")
 public class AppUserController {
     @Autowired
-    AppUserService appUserService;
+    IAppUserSevice appUserService;
 
     @GetMapping()
     public ResponseEntity<Iterable<AppUser>> showList() {
@@ -39,6 +40,7 @@ public class AppUserController {
         if(!appUser.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        user.setStatus(appUser.get().getStatus());
         user.setId(appUser.get().getId());
         user.setAccount(appUser.get().getAccount());
         return new ResponseEntity<>(appUserService.save(user),HttpStatus.OK);
