@@ -44,12 +44,17 @@ public class CartService implements ICartService {
 
     @Override
     public void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice) {
-        cartRepository.saveCart(quantity, price, userID, productId, totalPrice);
+      cartRepository.saveCart(quantity, price, userID, productId, totalPrice);
     }
 
     @Override
     public Optional<Cart> findCartByProduct(Product product) {
         return cartRepository.findCartByProduct(product);
+    }
+
+    @Override
+    public boolean existsCartByProductId(Long id) {
+        return cartRepository.existsCartByProductId(id);
     }
 
 

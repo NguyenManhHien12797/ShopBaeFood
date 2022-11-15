@@ -32,19 +32,19 @@ public class CartController {
     private IProductService productService;
 
     @GetMapping("/public/cart")
-    public ResponseEntity<Iterable<Cart>> findAllCart(){
+    public ResponseEntity<Iterable<Cart>> findAllCart() {
         Iterable<Cart> carts = cartService.findAll();
         return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
     @PutMapping("/cart/{id}")
-    public ResponseEntity<Cart> updateCart (@PathVariable Long id,@RequestBody Cart cart){
+    public ResponseEntity<Cart> updateCart(@PathVariable Long id, @RequestBody Cart cart) {
         Optional<Cart> cartOptional = cartService.findById(id);
-        if(!cartOptional.isPresent()){
+        if (!cartOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         cart.setId(cartOptional.get().getId());
-        return new ResponseEntity<>(cartService.save(cart),HttpStatus.OK);
+        return new ResponseEntity<>(cartService.save(cart), HttpStatus.OK);
     }
 
     @GetMapping("/public/cart/{id}")
@@ -67,25 +67,35 @@ public class CartController {
     @GetMapping("/public/cart/product/{id}")
     public ResponseEntity<?> findCartByProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
-        if(!productOptional.isPresent()){
+        if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Optional<Cart> cartOptional = cartService.findCartByProduct(productOptional.get());
-        if(!cartOptional.isPresent()){
+        if (!cartOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(cartOptional, HttpStatus.OK);
     }
 
+
+    @GetMapping("/public/cart/product/exist/{id}")
+    public ResponseEntity<?> existsCartByProductId(@PathVariable Long id) {
+        boolean existsCartByProductId = cartService.existsCartByProductId(id);
+
+        return new ResponseEntity<>(existsCartByProductId, HttpStatus.OK);
+    }
+
+
     @PostMapping("/cart")
-    public ResponseEntity<?> saveCart(@RequestBody Cart cart) {
-        Optional<Product> productOptional = productService.findById(cart.getProduct().getId());
-        if(!productOptional.isPresent()){
+    public ResponseEntity<?> saveCart(@RequestBody CartDTO cart) {
+        Optional<Product> productOptional = productService.findById(cart.getProduct_id());
+        if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-//        cartService.saveCart(cart.getQuantity(), cart.getPrice(), cart.getUser().getId(), cart.getProduct().getId(),cart.getTotalPrice());
-        cartService.save(cart);
+
+        cartService.saveCart(cart.getQuantity(), cart.getPrice(), cart.getUser_id(), cart.getProduct_id(), cart.getTotalPrice());
+//        cartService.save(cart);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -99,7 +109,7 @@ public class CartController {
         if (!cartOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-       cartOptional.get().setQuantity(cartOptional.get().getQuantity()+ 1);
+        cartOptional.get().setQuantity(cartOptional.get().getQuantity() + 1);
         return new ResponseEntity<>(cartService.save(cartOptional.get()), HttpStatus.OK);
     }
 

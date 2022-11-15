@@ -1,6 +1,7 @@
 package com.example.trua_nay_an_gi.repository.cart;
 
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
+import com.example.trua_nay_an_gi.model.dto.CartDTO;
 import com.example.trua_nay_an_gi.model.product.Cart;
 import com.example.trua_nay_an_gi.model.product.Product;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,4 +25,6 @@ public interface ICartRepository extends PagingAndSortingRepository<Cart, Long> 
 
     Optional<Cart> findCartByProduct(Product product);
 
+
+    boolean existsCartByProductId(Long id);
 }

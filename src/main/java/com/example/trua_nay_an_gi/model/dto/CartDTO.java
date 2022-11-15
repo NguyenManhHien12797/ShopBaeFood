@@ -14,7 +14,7 @@ public class CartDTO {
     private  double price;
     private Long user_id;
     private Long product_id;
-    private Double totalPrice;
+    private double totalPrice;
 
 
 }
