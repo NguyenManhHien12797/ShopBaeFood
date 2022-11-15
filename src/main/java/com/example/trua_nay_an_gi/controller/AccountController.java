@@ -82,7 +82,19 @@ public class AccountController {
         accountOptional.get().setEnabled(true);
         return new ResponseEntity<>(accountService.save(accountOptional.get()), HttpStatus.OK);
     }
-
+    @PatchMapping("/user/{id}")
+    public ResponseEntity<Account> updateUserInfo(@PathVariable Long id, @RequestBody Account account) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        accountOptional.get().setUserName(account.getUserName());
+        accountOptional.get().setPassword(encoder.encode(account.getPassword()));
+        accountOptional.get().setEmail(account.getEmail());
+        accountOptional.get().setUser(account.getUser());
+        accountOptional.get().setEnabled(true);
+        return new ResponseEntity<>(accountService.save(accountOptional.get()), HttpStatus.OK);
+    }
     //    http://localhost:8080/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Account> deleteCustomer(@PathVariable Long id) {
