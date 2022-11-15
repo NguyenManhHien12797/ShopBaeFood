@@ -21,6 +21,7 @@ public class Order {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "AppUser_id")
     private AppUser appUser;
 
     private String note;
