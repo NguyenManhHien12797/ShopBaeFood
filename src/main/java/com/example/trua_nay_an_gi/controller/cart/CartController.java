@@ -84,8 +84,8 @@ public class CartController {
         if(!productOptional.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-//        cartService.saveCart(cart.getQuantity(), cart.getPrice(), cart.getUser().getId(), cart.getProduct().getId(),cart.getTotalPrice());
-        cartService.save(cart);
+        cartService.saveCart(cart.getQuantity(), cart.getPrice(), cart.getUser().getId(), cart.getProduct().getId(),cart.getTotalPrice());
+//        cartService.save(cart);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
