@@ -36,5 +36,14 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             @Param(value = "namePattern") String namePattern, @Param(value = "categoryIdList") String categoryIdList,
             @Param(value = "limit") int limit);
 
-
+    @Query(value = "select distinct product.* " +
+            "from product join product_category p on product.id = p.product_id " +
+            "where p.category_id in ( " +
+            "    select pc.category_id " +
+            "    from product_category pc " +
+            "    where pc.product_id = :productId) " +
+            "and product.id != :productId " +
+            "order by product.sold desc " +
+            "limit :limit", nativeQuery = true)
+    Iterable<Product> findProductWithSameCategoryWith(@Param(value = "productId") Long productId, @Param(value = "limit") int limit);
 }
