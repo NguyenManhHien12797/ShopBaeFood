@@ -23,26 +23,10 @@ public class Order {
     @ManyToOne
     private AppUser appUser;
 
-    private Date createDate;
+    private String note;
 
-    @ManyToOne
-    private Coupon coupon;
+    private String orderdate;
 
-    @OneToOne
-    private Delivery delivery;
-
-    private double serviceFee;
-    private double shippingFee;
-    private double discountAmount;
-    private double totalFee;
-
-    @Column(columnDefinition = "VARCHAR(500)")
-    private String merchantNote;
-
-    @Column(columnDefinition = "VARCHAR(500)")
-    private String shippingNote;
-
-    @Column(columnDefinition = "VARCHAR(100)")
     private String status;
 
 }
