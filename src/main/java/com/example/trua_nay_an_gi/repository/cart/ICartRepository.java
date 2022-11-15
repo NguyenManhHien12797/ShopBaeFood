@@ -1,6 +1,7 @@
 package com.example.trua_nay_an_gi.repository.cart;
 
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
+import com.example.trua_nay_an_gi.model.dto.CartDTO;
 import com.example.trua_nay_an_gi.model.product.Cart;
 import com.example.trua_nay_an_gi.model.product.Product;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,8 +21,10 @@ public interface ICartRepository extends PagingAndSortingRepository<Cart, Long> 
     @Modifying
     @Transactional
     @Query(value = "insert into cart(quantity,price,user_id,product_id,total_price) values (?1,?2,?3,?4,?5);", nativeQuery = true)
-    void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
+    Cart saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
 
     Optional<Cart> findCartByProduct(Product product);
 
+
+    boolean existsCartByProductId(Long id);
 }
