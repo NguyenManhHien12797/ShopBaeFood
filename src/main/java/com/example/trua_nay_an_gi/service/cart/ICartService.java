@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ICartService extends GeneralService<Cart> {
     Iterable<Cart> findAllByUser(AppUser user);
 
-    Cart saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
+    void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
 
     Optional<Cart> findCartByProduct(Product product);
 

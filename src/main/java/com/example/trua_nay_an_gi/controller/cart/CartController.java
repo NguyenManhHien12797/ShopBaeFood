@@ -94,9 +94,9 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-      ;
+        cartService.saveCart(cart.getQuantity(), cart.getPrice(), cart.getUser_id(), cart.getProduct_id(), cart.getTotalPrice());
 //        cartService.save(cart);
-        return new ResponseEntity<>(cartService.saveCart(cart.getQuantity(), cart.getPrice(), cart.getUser_id(), cart.getProduct_id(), cart.getTotalPrice()),HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/cart/{id}")

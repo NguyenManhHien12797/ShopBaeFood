@@ -21,7 +21,7 @@ public interface ICartRepository extends PagingAndSortingRepository<Cart, Long> 
     @Modifying
     @Transactional
     @Query(value = "insert into cart(quantity,price,user_id,product_id,total_price) values (?1,?2,?3,?4,?5);", nativeQuery = true)
-    Cart saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
+    void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
 
     Optional<Cart> findCartByProduct(Product product);
 

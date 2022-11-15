@@ -43,8 +43,8 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public Cart saveCart(int quantity, double price, Long userID, Long productId, double totalPrice) {
-        return cartRepository.saveCart(quantity, price, userID, productId, totalPrice);
+    public void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice) {
+      cartRepository.saveCart(quantity, price, userID, productId, totalPrice);
     }
 
     @Override
