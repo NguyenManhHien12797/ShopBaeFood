@@ -62,5 +62,15 @@ public class CartService implements ICartService {
         cartRepository.setProductCart(cart_id, product_id);
     }
 
+    @Override
+    public Optional<Cart> findCartByProductIdAndUserId(Long product_id, Long user_id) {
+        return cartRepository.findCartByProductIdAndUserId(product_id, user_id);
+    }
+
+    @Override
+    public void updateQuantityCart(int quantity, Long cart_id) {
+        cartRepository.updateQuantityCart(quantity,cart_id);
+    }
+
 
 }
