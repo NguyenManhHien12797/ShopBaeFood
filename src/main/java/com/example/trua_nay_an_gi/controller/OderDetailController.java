@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @CrossOrigin("*")
-@RequestMapping("/api/oderdetails")
+@RequestMapping("/api/orderdetails")
 @RestController
 public class OderDetailController {
     @Autowired

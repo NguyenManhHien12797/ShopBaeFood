@@ -31,6 +31,7 @@ public class OderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         order.setId(orders.get().getId());
+        order.setAppUser(orders.get().getAppUser());
         return new ResponseEntity<>(orderService.save(order), HttpStatus.OK);
     }
 
