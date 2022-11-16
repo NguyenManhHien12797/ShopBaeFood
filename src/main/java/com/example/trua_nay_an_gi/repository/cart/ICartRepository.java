@@ -27,4 +27,8 @@ public interface ICartRepository extends PagingAndSortingRepository<Cart, Long> 
 
 
     boolean existsCartByProductId(Long id);
+
+    @Modifying
+    @Query(value = "insert into product_cart(cart_id,product_id) values (?1,?2)", nativeQuery = true)
+    void setProductCart(Long cart_id, Long product_id);
 }
