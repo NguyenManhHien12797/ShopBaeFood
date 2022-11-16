@@ -27,7 +27,7 @@ public class Cart {
 //    @JsonBackReference
     private AppUser user;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "product_id")
     private Product product;
 
