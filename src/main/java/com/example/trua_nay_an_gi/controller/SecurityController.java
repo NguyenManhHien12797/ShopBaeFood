@@ -94,7 +94,7 @@ public class SecurityController {
                     .badRequest()
                     .body(new MessageResponse("Username đã được đăng ký"));
         }
-
+        String status="active";
         boolean isEnabled = true;
         Account account = new Account(request.getUserName(), encoder.encode(request.getPassword()), request.getEmail(), isEnabled);
         accountService.save(account);
@@ -102,7 +102,7 @@ public class SecurityController {
         roleService.setDefaultRole(idAccountAfterCreated, 2);
         String avatar = "https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg";
 
-        userSevice.saveUserToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),idAccountAfterCreated);
+        userSevice.saveUserToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),idAccountAfterCreated,status);
         return ResponseEntity.ok(new MessageResponse("Đăng ký tài khoản thành công"));
             }
 
