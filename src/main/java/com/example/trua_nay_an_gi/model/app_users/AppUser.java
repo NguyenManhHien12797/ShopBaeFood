@@ -23,6 +23,4 @@ public class AppUser {
     @JoinColumn(name = "account_id")
     @JsonBackReference
     private Account account;
-
-
 }
