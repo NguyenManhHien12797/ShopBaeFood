@@ -40,7 +40,6 @@ public class AppUserController {
         if(!appUser.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        user.setStatus(appUser.get().getStatus());
         user.setId(appUser.get().getId());
         user.setAccount(appUser.get().getAccount());
         return new ResponseEntity<>(appUserService.save(user),HttpStatus.OK);
