@@ -33,4 +33,6 @@ public interface AccountRepository extends PagingAndSortingRepository<Account,Lo
     Optional<Account> findAccByMerchantId(Long id);
     @Query(nativeQuery = true, value = "select account.email from account join merchant m on account.id = m.account_id and m.id =?1")
     String findEmailByMerchantID(Long id);
+    @Query(nativeQuery = true, value = "select * from account join app_user a on account.id = a.account_id and a.id =?1")
+    Optional<Account> findAccByUserId(Long id);
 }

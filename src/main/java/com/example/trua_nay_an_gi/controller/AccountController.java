@@ -6,6 +6,7 @@ import com.example.trua_nay_an_gi.model.dto.AccountRegisterDTO;
 import com.example.trua_nay_an_gi.model.dto.MerchantDTO;
 import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.service.account.AccountService;
+import com.example.trua_nay_an_gi.service.account.IAccountService;
 import com.example.trua_nay_an_gi.service.merchant.IMerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ import java.util.Optional;
 @RequestMapping("/api/account")
 public class AccountController {
     @Autowired
-    AccountService accountService;
+    IAccountService accountService;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -108,6 +109,15 @@ public class AccountController {
 
     @GetMapping("/merchant/{id}")
     public ResponseEntity<?> findAcountByMerchant(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findAccByMerchantId(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(new MerchantDTO(accountOptional.get().getMerchant().getId(),accountOptional.get().getEmail(),accountOptional.get().getMerchant().getName()), HttpStatus.OK);
+    }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> findAcountByUser(@PathVariable Long id) {
         Optional<Account> accountOptional = accountService.findAccByMerchantId(id);
         if (!accountOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

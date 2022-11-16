@@ -93,25 +93,34 @@ public class CartController {
         if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
+        Optional<Cart>optionalCart1 = cartService.findCartByProductIdAndUserId(cart.getProduct_id(), cart.getUser_id() );
+        if (optionalCart1.isPresent()) {
+           return ResponseEntity.ok(new MessageResponse("Co cart roi"));
+        }
         cartService.saveCart(cart.getQuantity(), cart.getPrice(), cart.getUser_id(), cart.getProduct_id(), cart.getTotalPrice());
+
+        Optional<Cart>optionalCart = cartService.findCartByProductIdAndUserId(cart.getProduct_id(), cart.getUser_id() );
+        if (optionalCart.isPresent()) {
+            cartService.setProductCart(optionalCart.get().getId(), cart.getProduct_id());
+        }
 
 //        cartService.save(cart);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PatchMapping("/cart/{id}")
-    public ResponseEntity<Cart> updateToCart(@PathVariable Long id, @RequestBody Cart cart) {
-        Optional<Product> productOptional = productService.findById(id);
+    @PostMapping("/cart/{produc_id}")
+    public ResponseEntity<Cart> updateToCart(@PathVariable Long produc_id,@RequestBody Long user_id) {
+        Optional<Product> productOptional = productService.findById(produc_id);
         if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Optional<Cart> cartOptional = cartService.findById(cart.getId());
+        Optional<Cart>cartOptional = cartService.findCartByProductIdAndUserId(productOptional.get().getId(), user_id);
         if (!cartOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        cartOptional.get().setQuantity(cartOptional.get().getQuantity() + 1);
-        return new ResponseEntity<>(cartService.save(cartOptional.get()), HttpStatus.OK);
+        int quantity = cartOptional.get().getQuantity() + 1;
+        cartService.updateQuantityCart(quantity, cartOptional.get().getId());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/cart/{id}")

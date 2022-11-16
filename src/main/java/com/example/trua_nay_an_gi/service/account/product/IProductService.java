@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface IProductService<P> extends GeneralService<Product> {
+public interface IProductService extends GeneralService<Product> {
     Iterable<Product> findAllByDeleteFlagAndMerchant(Long id);
     List<Product> finallProductbydeleteflagTrue();
     List<Product> fAllByDeleFlagTAndMerAndNameContai(Long id,String name);

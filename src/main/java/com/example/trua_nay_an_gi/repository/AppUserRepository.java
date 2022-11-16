@@ -15,6 +15,6 @@ public interface AppUserRepository extends PagingAndSortingRepository<AppUser,Lo
 
  @Modifying
  @Transactional
- @Query(value = "insert into app_user(address,avatar,name,phone,account_id) values (?1,?2,?3,?4,?5)", nativeQuery = true)
- void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id);
+ @Query(value = "insert into app_user(address,avatar,name,phone,account_id,status) values (?1,?2,?3,?4,?5,?6)", nativeQuery = true)
+ void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id, String status);
 }
