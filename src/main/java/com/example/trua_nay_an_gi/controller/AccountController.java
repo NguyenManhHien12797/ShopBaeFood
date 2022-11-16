@@ -77,7 +77,7 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         accountOptional.get().setUserName(account.getUserName());
-        accountOptional.get().setPassword(encoder.encode(account.getPassword()));
+//        accountOptional.get().setPassword(encoder.encode(account.getPassword()));
         accountOptional.get().setEmail(account.getEmail());
         accountOptional.get().setMerchant(account.getMerchant());
         accountOptional.get().setEnabled(true);
@@ -90,7 +90,7 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         accountOptional.get().setUserName(account.getUserName());
-        accountOptional.get().setPassword(encoder.encode(account.getPassword()));
+//        accountOptional.get().setPassword(encoder.encode(account.getPassword()));
         accountOptional.get().setEmail(account.getEmail());
         accountOptional.get().setUser(account.getUser());
         accountOptional.get().setEnabled(true);
