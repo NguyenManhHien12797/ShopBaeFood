@@ -8,5 +8,5 @@ public interface IAppUserSevice extends GeneralService<AppUser> {
 
     AppUser findByUserName(String name);
 
-    void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id);
+    void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id, String status);
 }

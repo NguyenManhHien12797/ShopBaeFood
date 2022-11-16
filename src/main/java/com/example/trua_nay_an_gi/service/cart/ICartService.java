@@ -16,4 +16,8 @@ public interface ICartService extends GeneralService<Cart> {
     Optional<Cart> findCartByProduct(Product product);
 
     boolean existsCartByProductId(Long id);
+    void setProductCart(Long cart_id, Long product_id);
+
+    Optional<Cart> findCartByProductIdAndUserId(Long product_id, Long user_id);
+    void updateQuantityCart(int quantity,Long cart_id);
 }

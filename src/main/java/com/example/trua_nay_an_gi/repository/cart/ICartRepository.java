@@ -25,6 +25,15 @@ public interface ICartRepository extends PagingAndSortingRepository<Cart, Long> 
 
     Optional<Cart> findCartByProduct(Product product);
 
-
+    @Query(value = "select * from cart where product_id = ?1 and user_id= ?2", nativeQuery = true)
+    Optional<Cart> findCartByProductIdAndUserId(Long product_id, Long user_id);
     boolean existsCartByProductId(Long id);
+
+    @Modifying
+    @Query(value = "insert into product_cart(cart_id,product_id) values (?1,?2)", nativeQuery = true)
+    void setProductCart(Long cart_id, Long product_id);
+
+    @Modifying
+    @Query(value = "update cart set quantity = ?1 where id=?2", nativeQuery = true)
+    void updateQuantityCart(int quantity,Long cart_id);
 }
