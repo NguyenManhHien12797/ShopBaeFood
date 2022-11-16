@@ -71,6 +71,11 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public Optional<Account> findAccByUserId(Long id) {
+        return accountRepository.findAccByUserId(id);
+    }
+
+    @Override
     public String findEmailByMerchantID(Long id) {
         return accountRepository.findEmailByMerchantID(id);
     }
@@ -78,7 +83,7 @@ public class AccountService implements IAccountService, UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account= accountRepository.findByUserName(username);
+        Account account = accountRepository.findByUserName(username);
         return AccountDetails.build(account);
     }
 
