@@ -57,5 +57,10 @@ public class CartService implements ICartService {
         return cartRepository.existsCartByProductId(id);
     }
 
+    @Override
+    public void setProductCart(Long cart_id, Long product_id) {
+        cartRepository.setProductCart(cart_id, product_id);
+    }
+
 
 }
