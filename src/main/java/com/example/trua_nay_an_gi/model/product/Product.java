@@ -32,7 +32,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "merchant_id")
-    @JsonBackReference
+//    @JsonBackReference
     private Merchant merchant;
 
 

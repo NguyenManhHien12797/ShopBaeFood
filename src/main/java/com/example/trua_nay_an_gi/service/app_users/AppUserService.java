@@ -36,6 +36,11 @@ public class AppUserService implements IAppUserSevice {
         appUserRepository.deleteById(id);
     }
 
+    @Override
+    public void removeAll() {
+
+    }
+
 
     @Override
     public boolean existByName(String name) {

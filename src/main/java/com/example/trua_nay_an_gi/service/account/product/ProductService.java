@@ -1,4 +1,4 @@
-package com.example.trua_nay_an_gi.service.product;
+package com.example.trua_nay_an_gi.service.account.product;
 
 import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.repository.ProductRepository;
@@ -32,6 +32,11 @@ public class ProductService implements IProductService {
     @Override
     public void remove(Long id) {
         productRepository.deleteById(id);
+
+    }
+
+    @Override
+    public void removeAll() {
 
     }
 
