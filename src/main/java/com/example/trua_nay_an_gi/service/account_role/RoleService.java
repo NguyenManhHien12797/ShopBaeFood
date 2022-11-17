@@ -33,6 +33,11 @@ RoleRepository accountRoleRepository;
     }
 
     @Override
+    public void removeAll() {
+
+    }
+
+    @Override
     public Optional<AppRoles> findByName(String name) {
         return accountRoleRepository.findByName(name);
     }

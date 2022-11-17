@@ -9,16 +9,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/public/orders")
 public class OderController {
     @Autowired
     IOrderService orderService;
 
-    @GetMapping
+    @GetMapping()
    public ResponseEntity<Iterable<Order>> showList(){
         Iterable<Order> orders = orderService.findAll();
         return new ResponseEntity<>(orders, HttpStatus.OK);
@@ -35,8 +36,9 @@ public class OderController {
         return new ResponseEntity<>(orderService.save(order), HttpStatus.OK);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping()
     public ResponseEntity<Order> saveOrder(@RequestBody  Order order) {
+        order.setOrderdate(LocalDateTime.now());
         return new ResponseEntity<>(orderService.save(order),HttpStatus.CREATED);
     }
 

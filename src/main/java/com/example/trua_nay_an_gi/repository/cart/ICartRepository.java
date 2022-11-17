@@ -36,4 +36,6 @@ public interface ICartRepository extends PagingAndSortingRepository<Cart, Long> 
     @Modifying
     @Query(value = "update cart set quantity = ?1 where id=?2", nativeQuery = true)
     void updateQuantityCart(int quantity,Long cart_id);
+
+    void deleteCartsByUser(AppUser user);
 }

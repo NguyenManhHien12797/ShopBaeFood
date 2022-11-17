@@ -133,4 +133,11 @@ public class CartController {
         return new ResponseEntity<>(cartOptional.get(), HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping("/cart/user/{user_id}")
+    public ResponseEntity<?> deleteAllCartByUser(@PathVariable Long user_id) {
+        Optional<AppUser> appUser = userSevice.findById(user_id);
+        cartService.deleteCartsByUser(appUser.get());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

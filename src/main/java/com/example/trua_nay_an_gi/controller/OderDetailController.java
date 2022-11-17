@@ -4,6 +4,7 @@ import com.example.trua_nay_an_gi.model.product.Coupon;
 import com.example.trua_nay_an_gi.model.product.Order;
 import com.example.trua_nay_an_gi.model.product.OrderDetail;
 import com.example.trua_nay_an_gi.service.oder_detail.OderDetailService;
+import com.example.trua_nay_an_gi.service.order.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @CrossOrigin("*")
-@RequestMapping("/api/orderdetails")
+@RequestMapping("/api/public/orderdetails")
 @RestController
 public class OderDetailController {
     @Autowired
     OderDetailService oderDetailService;
+    @Autowired
+    private IOrderService orderService;
+
 
     @GetMapping
     public ResponseEntity<Iterable<OrderDetail>> ShowOrdersDetail() {
@@ -33,7 +37,7 @@ public class OderDetailController {
         return new ResponseEntity<>(orderDetailOptional.get(),HttpStatus.OK);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping()
     public ResponseEntity<OrderDetail> saveOrderdetail(@RequestBody  OrderDetail orderDetail) {
         return new ResponseEntity<>(oderDetailService.save(orderDetail),HttpStatus.CREATED);
     }
@@ -56,5 +60,13 @@ public class OderDetailController {
         }
         oderDetailService.remove(id);
         return new ResponseEntity<>(orderDetailOptional.get(),HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/order/{id}")
+    public ResponseEntity<Iterable<OrderDetail>> findOrderDetailByOrderId(@PathVariable Long id) {
+        Optional<Order> orderOptional = orderService.findById(id);
+
+        Iterable<OrderDetail> orderDetailOptional = oderDetailService.findOrderDetailsByOrder(orderOptional.get());
+        return new ResponseEntity<>(orderDetailOptional,HttpStatus.OK);
     }
  }

@@ -35,6 +35,11 @@ public class ProductService implements IProductService {
 
     }
 
+    @Override
+    public void removeAll() {
+
+    }
+
 
     @Override
     public Iterable<Product> findAllByDeleteFlagAndMerchant(Long id) {
