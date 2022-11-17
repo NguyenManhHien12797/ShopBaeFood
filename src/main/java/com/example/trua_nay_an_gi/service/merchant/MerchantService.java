@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MerchantService implements IMerchantService{
+public class MerchantService implements IMerchantService {
 
     @Autowired
     private IMerchantRepository merchantRepository;
@@ -36,7 +36,7 @@ public class MerchantService implements IMerchantService{
 
     @Override
     public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID) {
-        merchantRepository.saveMerchantToRegister(address,avatar,name,phone,status,accountID);
+        merchantRepository.saveMerchantToRegister(address, avatar, name, phone, status, accountID);
     }
 
     @Override
@@ -51,5 +51,17 @@ public class MerchantService implements IMerchantService{
 //    @Override
 //    public Optional<Merchant> findMerchantByAccount_Id(Long accountId) {
 //        return merchantRepository.findFirstByAccount_Id(accountId);
+//    }
+
+//    @Override
+//    public Iterable<Merchant> findMerchantWithSameCategoryWith(Long merchantId, int limit) {
+//        return merchantRepository.findMerchantWithSameCategoryWith(merchantId, limit);
+//    }
+
+
+//    @Override
+//    public Iterable<Merchant> findMerchantByNameAndCategoryIdList(String namePattern, Long categoryIdList) {
+//        String tempName = "%" + namePattern + "%";
+//        return merchantRepository.findMerchantByNameAndCategoryIdList(tempName, categoryIdList);
 //    }
 }

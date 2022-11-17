@@ -2,6 +2,7 @@ package com.example.trua_nay_an_gi.service.merchant;
 
 import com.example.trua_nay_an_gi.model.app_users.Merchant;
 import com.example.trua_nay_an_gi.service.GeneralService;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface IMerchantService extends GeneralService<Merchant> {
 
 
     List<Merchant> findAllMerchantAndNameContai(String name);
+
+//    Iterable<Merchant> findMerchantByNameAndCategoryIdList(String namePattern,Long categoryIdList);
 }
