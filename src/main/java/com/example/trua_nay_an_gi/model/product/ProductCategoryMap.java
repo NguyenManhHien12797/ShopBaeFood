@@ -24,7 +24,4 @@ public class ProductCategoryMap {
     @JsonBackReference
     private Product product;
 
-
-
-
 }

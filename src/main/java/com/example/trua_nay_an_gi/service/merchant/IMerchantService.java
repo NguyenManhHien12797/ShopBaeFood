@@ -3,8 +3,7 @@ package com.example.trua_nay_an_gi.service.merchant;
 import com.example.trua_nay_an_gi.model.app_users.Merchant;
 import com.example.trua_nay_an_gi.service.GeneralService;
 
-import java.time.LocalDate;
-import java.util.Optional;
+import java.util.List;
 
 public interface IMerchantService extends GeneralService<Merchant> {
 //    Optional<Merchant> findMerchantByAccountId(Long id);
@@ -20,4 +19,7 @@ public interface IMerchantService extends GeneralService<Merchant> {
 //    Iterable<OrderByQueryDto> finAllOrderByMerchantIdInPeriod (Long id, LocalDate startTime, LocalDate endTime);
 
     void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID);
+
+
+    List<Merchant> findAllMerchantAndNameContai(String name);
 }

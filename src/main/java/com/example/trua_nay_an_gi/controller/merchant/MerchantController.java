@@ -2,12 +2,14 @@ package com.example.trua_nay_an_gi.controller.merchant;
 
 import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.app_users.Merchant;
+import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.service.merchant.IMerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -83,5 +85,14 @@ public class MerchantController {
         }
         merchantService.remove(id);
         return new ResponseEntity<>(merchantOptional.get(), HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/public/merchant/search")
+    public ResponseEntity<Iterable<Merchant>> findAllMerchantByName(@RequestParam String name){
+        List<Merchant> merchants = merchantService.findAllMerchantAndNameContai(name);
+        if (merchants.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(merchants,HttpStatus.OK);
     }
 }
