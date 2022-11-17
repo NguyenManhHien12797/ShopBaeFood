@@ -1,6 +1,7 @@
 package com.example.trua_nay_an_gi.service.order;
 
 
+import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.product.Order;
 import com.example.trua_nay_an_gi.repository.IOrderRepository;
 
@@ -39,5 +40,10 @@ public class OrderService implements IOrderService {
     @Override
     public void removeAll() {
 
+    }
+
+    @Override
+    public Iterable<Order> findOrdersByAppUser(AppUser user) {
+        return orderRepository.findOrdersByAppUser(user);
     }
 }
