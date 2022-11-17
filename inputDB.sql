@@ -134,3 +134,36 @@ insert into product value (38,1,'https://images.foody.vn/res/g96/956602/s120x120
 insert into product value (39,1,'https://images.foody.vn/res/g96/956602/s120x120/d9340a0a-cc98-4a99-9b2a-6d0ddcaf9877.jpeg','Su Kem Hàn Nhân Caramel Mix Nhân Phomai Chảy',80000,13,90000,'Bánh đựng trong hộp giấy gồm 8cái(4 nhân caramel,4 nhân phomai chảy) Bánh dai,béo ngậy sốt đậm đà',4,100);
 insert into product value (40,1,'https://images.foody.vn/res/g96/956602/s120x120/348aae65-df2d-42a6-86ac-527c6ad71879.jpg','Bông Lan Trứng Muối Ruốc Gà Cay Sốt Phomai Chảy Hộp Nhỏ',26000,4,29000,'Giá đã bao gồm chi phí đóng gói mang đi. Bánh có sốt phomai chảy,cốt chifon,ruốc handmade,túi tự huỷ sinh học,dĩa gỗ,..',4,100);
 
+insert into app_user value (1,'user1','','user1','0979276402',1,'');
+insert into app_user value (2,'user2','','user2','0979276402',2,'');
+insert into app_user value (3,'user3','','user3','0979276402',3,'');
+insert into app_user value (4,'user4','','user4','0979276402',4,'');
+insert into app_user value (5,'user5','','user5','0979276402',5,'');
+insert into app_user value (6,'user6','','user6','0979276402',6,'');
+insert into app_user value (7,'user7','','user7','0979276402',7,'');
+insert into app_user value (8,'user8','','user8','0979276402',8,'');
+insert into app_user value (9,'user9','','user9','0979276402',9,'');
+insert into app_user value (10,'user10','','user10','0979276402',10,'');
+insert into app_user value (11,'admin','','admin','0979276402',11,'');
+insert into app_user value (12,'user11','','user11','0979276402',12,'');
+insert into app_user value (13,'user12','','user12','0979276402',13,'');
+insert into app_user value (14,'user13','','user13','0979276402',14,'');
+insert into app_user value (15,'user14','','user14','0979276402',15,'');
+insert into app_user value (16,'user15','','user15','0979276402',16,'');
+insert into app_user value (17,'user16','','user16','0979276402',17,'');
+insert into app_user value (18,'user17','','user17','0979276402',18,'');
+insert into app_user value (19,'user18','','user18','0979276402',19,'');
+insert into app_user value (20,'user19','','user19','0979276402',20,'');
+insert into app_user value (21,'user20','','user20','0979276402',21,'');
+insert into app_user value (22,'user21','','user21','0979276402',22,'');
+insert into app_user value (23,'user22','','user22','0979276402',23,'');
+insert into app_user value (24,'user23','','user23','0979276402',24,'');
+insert into app_user value (25,'user24','','user24','0979276402',25,'');
+insert into app_user value (26,'user25','','user25','0979276402',26,'');
+insert into app_user value (27,'user26','','user26','0979276402',27,'');
+insert into app_user value (28,'user27','','user27','0979276402',28,'');
+insert into app_user value (29,'user28','','user28','0979276402',29,'');
+insert into app_user value (30,'user29','','user29','0979276402',30,'');
+insert into app_user value (31,'user30','','user30','0979276402',31,'');
+
+
