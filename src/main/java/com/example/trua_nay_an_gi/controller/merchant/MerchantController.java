@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -83,5 +84,10 @@ public class MerchantController {
         }
         merchantService.remove(id);
         return new ResponseEntity<>(merchantOptional.get(), HttpStatus.NO_CONTENT);
+    }
+    @PostMapping("/public/merchant/search")
+    public ResponseEntity<?> deleteMerchant(@RequestParam String name) {
+        List<Merchant> merchants = merchantService.findAllContai(name);
+        return new ResponseEntity<>(merchants, HttpStatus.OK);
     }
 }
