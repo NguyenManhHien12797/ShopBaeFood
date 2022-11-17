@@ -5,6 +5,7 @@ import com.example.trua_nay_an_gi.repository.merchant.IMerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,6 +42,11 @@ public class MerchantService implements IMerchantService{
     @Override
     public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID) {
         merchantRepository.saveMerchantToRegister(address,avatar,name,phone,status,accountID);
+    }
+
+    @Override
+    public List<Merchant> findAllContai(String name) {
+        return merchantRepository.findAllMerchantAndNameContai(name);
     }
 //    @Override
 //    public Optional<Merchant> findMerchantByAccountId(Long id) {
