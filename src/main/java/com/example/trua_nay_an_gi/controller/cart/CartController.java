@@ -6,10 +6,10 @@ import com.example.trua_nay_an_gi.model.dto.CartDTO;
 import com.example.trua_nay_an_gi.model.product.Cart;
 import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.payload.response.MessageResponse;
+import com.example.trua_nay_an_gi.service.account.product.IProductService;
 import com.example.trua_nay_an_gi.service.app_users.IAppUserSevice;
 import com.example.trua_nay_an_gi.service.cart.ICartService;
-import com.example.trua_nay_an_gi.service.merchant.IMerchantService;
-import com.example.trua_nay_an_gi.service.product.IProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -131,6 +131,13 @@ public class CartController {
         }
         cartService.remove(id);
         return new ResponseEntity<>(cartOptional.get(), HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/cart/user/{user_id}")
+    public ResponseEntity<?> deleteAllCartByUser(@PathVariable Long user_id) {
+        Optional<AppUser> appUser = userSevice.findById(user_id);
+        cartService.deleteCartsByUser(appUser.get());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

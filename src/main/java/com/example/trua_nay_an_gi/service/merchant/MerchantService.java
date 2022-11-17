@@ -35,6 +35,11 @@ public class MerchantService implements IMerchantService {
     }
 
     @Override
+    public void removeAll() {
+
+    }
+
+    @Override
     public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID) {
         merchantRepository.saveMerchantToRegister(address, avatar, name, phone, status, accountID);
     }

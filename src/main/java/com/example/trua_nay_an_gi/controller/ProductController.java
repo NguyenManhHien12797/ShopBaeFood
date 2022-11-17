@@ -1,8 +1,7 @@
 package com.example.trua_nay_an_gi.controller;
 
 import com.example.trua_nay_an_gi.model.product.Product;
-import com.example.trua_nay_an_gi.service.product.IProductService;
-import com.example.trua_nay_an_gi.service.product.ProductService;
+import com.example.trua_nay_an_gi.service.account.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;

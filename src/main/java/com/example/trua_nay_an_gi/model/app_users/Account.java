@@ -22,6 +22,7 @@ public class Account {
     private String password;
     private boolean isEnabled;
     private String email;
+    private String otp;
     @OneToOne(mappedBy = "account")
     private AppUser user;
     @OneToOne(mappedBy = "account")

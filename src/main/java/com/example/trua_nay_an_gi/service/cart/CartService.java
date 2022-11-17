@@ -3,6 +3,7 @@ package com.example.trua_nay_an_gi.service.cart;
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.dto.CartDTO;
 import com.example.trua_nay_an_gi.model.product.Cart;
+import com.example.trua_nay_an_gi.model.product.OrderDetail;
 import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.repository.cart.ICartRepository;
 import com.example.trua_nay_an_gi.service.GeneralService;
@@ -35,6 +36,11 @@ public class CartService implements ICartService {
     @Override
     public void remove(Long id) {
         cartRepository.deleteById(id);
+    }
+
+    @Override
+    public void removeAll() {
+        cartRepository.deleteAll();
     }
 
     @Override
@@ -71,6 +77,8 @@ public class CartService implements ICartService {
     public void updateQuantityCart(int quantity, Long cart_id) {
         cartRepository.updateQuantityCart(quantity,cart_id);
     }
-
-
+    @Override
+    public void deleteCartsByUser(AppUser user) {
+        cartRepository.deleteCartsByUser(user);
+    }
 }
