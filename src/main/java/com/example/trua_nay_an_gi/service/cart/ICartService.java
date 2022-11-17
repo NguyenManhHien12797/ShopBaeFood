@@ -3,6 +3,7 @@ package com.example.trua_nay_an_gi.service.cart;
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
 import com.example.trua_nay_an_gi.model.dto.CartDTO;
 import com.example.trua_nay_an_gi.model.product.Cart;
+import com.example.trua_nay_an_gi.model.product.OrderDetail;
 import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.service.GeneralService;
 
@@ -20,4 +21,7 @@ public interface ICartService extends GeneralService<Cart> {
 
     Optional<Cart> findCartByProductIdAndUserId(Long product_id, Long user_id);
     void updateQuantityCart(int quantity,Long cart_id);
+
+    void deleteCartsByUser(AppUser user);
+
 }

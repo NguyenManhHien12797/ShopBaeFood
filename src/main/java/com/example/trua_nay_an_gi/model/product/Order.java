@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -26,8 +27,10 @@ public class Order {
 
     private String note;
 
-    private String orderdate;
+    private LocalDateTime orderdate;
 
     private String status;
+    private Long merchant_id;
+    private double totalPrice;
 
 }
