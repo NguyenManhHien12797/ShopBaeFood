@@ -44,33 +44,6 @@ public class MerchantController {
         return new ResponseEntity<>(merchantOptional.get(), HttpStatus.OK);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Merchant> updateMerchant(@PathVariable Long id, @RequestBody Merchant newMerchant) {
-//        Optional<Merchant> merchantOptional = merchantService.findById(id);
-//        if (!merchantOptional.isPresent()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        newMerchant.setId(id);
-//        return new ResponseEntity<>(merchantService.save(newMerchant), HttpStatus.OK);
-//    }
-//
-//    @PutMapping("/editMerchant/{id}")
-//    public ResponseEntity<Merchant> updateInformationMerchant(@PathVariable Long id, @RequestBody Merchant merchant) {
-//        Optional<Merchant> merchantOptional = merchantService.findById(id);
-//        if (!merchantOptional.isPresent()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        Merchant newMerchant = merchantOptional.get();
-//        newMerchant.setId(id);
-//        newMerchant.setName(merchant.getName());
-////        newMerchant.setDescription(merchant.getDescription());
-//        newMerchant.setAddress(merchant.getAddress());
-//        newMerchant.setPhone(merchant.getPhone());
-//        newMerchant.setOpenTime(merchant.getOpenTime());
-//        newMerchant.setCloseTime(merchant.getCloseTime());
-//        return new ResponseEntity<>(merchantService.save(newMerchant), HttpStatus.OK);
-//    }
-
     @PostMapping("/merchant")
     public ResponseEntity<Merchant> saveMerchant(@RequestBody Merchant merchant) {
         return new ResponseEntity<>(merchantService.save(merchant), HttpStatus.CREATED);
@@ -86,7 +59,7 @@ public class MerchantController {
         return new ResponseEntity<>(merchantOptional.get(), HttpStatus.NO_CONTENT);
     }
     @PostMapping("/public/merchant/search")
-    public ResponseEntity<?> deleteMerchant(@RequestParam String name) {
+    public ResponseEntity<?> searchMerchant(@RequestParam String name) {
         List<Merchant> merchants = merchantService.findAllContai(name);
         return new ResponseEntity<>(merchants, HttpStatus.OK);
     }

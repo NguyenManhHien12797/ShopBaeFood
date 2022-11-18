@@ -34,6 +34,16 @@ public class AppUserController {
         return new ResponseEntity<>(customerList, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AppUser> getUserById(@PathVariable Long id) {
+        Optional<AppUser> userOptional = appUserService.findById(id);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
+        return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<AppUser> updateUser(@RequestBody AppUser user, @PathVariable Long id){
         Optional<AppUser> appUser= appUserService.findById(id);
