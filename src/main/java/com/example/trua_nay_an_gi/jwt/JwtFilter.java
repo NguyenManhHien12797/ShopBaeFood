@@ -1,6 +1,6 @@
 package com.example.trua_nay_an_gi.jwt;
 
-import com.example.trua_nay_an_gi.service.account.AccountService;
+import com.example.trua_nay_an_gi.service.seviceImpl.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +21,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtility jwtUtility;
     @Autowired
-    private AccountService accountService;
+    private AccountServiceImpl accountService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

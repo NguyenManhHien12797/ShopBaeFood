@@ -1,22 +1,12 @@
 package com.example.trua_nay_an_gi.controller;
 
-import com.example.trua_nay_an_gi.model.app_users.Account;
-import com.example.trua_nay_an_gi.model.app_users.Merchant;
-import com.example.trua_nay_an_gi.model.dto.AccountRegisterDTO;
+import com.example.trua_nay_an_gi.model.Account;
 import com.example.trua_nay_an_gi.model.dto.MerchantDTO;
-import com.example.trua_nay_an_gi.model.product.Product;
-import com.example.trua_nay_an_gi.service.account.AccountService;
-import com.example.trua_nay_an_gi.service.account.IAccountService;
-import com.example.trua_nay_an_gi.service.merchant.IMerchantService;
+import com.example.trua_nay_an_gi.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")

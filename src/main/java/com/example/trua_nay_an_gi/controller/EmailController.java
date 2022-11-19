@@ -1,26 +1,17 @@
 package com.example.trua_nay_an_gi.controller;
 
-import com.example.trua_nay_an_gi.model.app_users.Account;
-import com.example.trua_nay_an_gi.model.app_users.AppUser;
-import com.example.trua_nay_an_gi.model.product.Mail;
-import com.example.trua_nay_an_gi.service.account.IAccountService;
-import com.example.trua_nay_an_gi.service.app_users.AppUserService;
-import com.example.trua_nay_an_gi.service.app_users.IAppUserSevice;
-import com.example.trua_nay_an_gi.service.mail.MailService;
+import com.example.trua_nay_an_gi.model.Account;
+import com.example.trua_nay_an_gi.model.Mail;
+import com.example.trua_nay_an_gi.service.IAccountService;
+import com.example.trua_nay_an_gi.service.IAppUserSevice;
+import com.example.trua_nay_an_gi.service.IMailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.internet.MimeMessage;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/api/public/mail")
@@ -30,7 +21,7 @@ public class EmailController {
     @Autowired
     private IAccountService accountService;
     @Autowired
-    private MailService mailService;
+    private IMailService IMailService;
     @Autowired
     PasswordEncoder encoder;
     // http://localhost:8080/mail/sender
@@ -45,7 +36,7 @@ public class EmailController {
         mail.setMailSubject("subject");
         mail.setMailContent("test");
 
-        mailService.sendEmail(mail);
+        IMailService.sendEmail(mail);
         return new ResponseEntity<>(mail, HttpStatus.OK);
     }
 
@@ -58,7 +49,7 @@ public class EmailController {
         mail.setMailSubject("Mail xác nhận đăng ký");
         mail.setMailContent("Dear "+name+"! Cảm ơn bạn đã đăng ký làm thành viên của hệ thống");
 
-        mailService.sendEmail(mail);
+        IMailService.sendEmail(mail);
         return new ResponseEntity<>(mail, HttpStatus.OK);
     }
 
@@ -70,7 +61,7 @@ public class EmailController {
         mail.setMailSubject("Mail từ chối đăng ký làm người bán");
         mail.setMailContent("Cảm ơn bạn đã đăng ký làm merchant của hệ thống. Chúng tôi rất tiếc khi bạn chưa đủ điều kiện để đăng ký làm người bán.");
 
-        mailService.sendEmail(mail);
+        IMailService.sendEmail(mail);
         return new ResponseEntity<>(mail, HttpStatus.OK);
     }
 //    http://localhost:8080/api/public/mail/chkncotp
@@ -90,7 +81,7 @@ public class EmailController {
         mail.setMailFrom("nguyenhuuquyet07092001@gmail.com");
         mail.setMailSubject("Mã xác nhận OTP");
         mail.setMailContent("Mã OTP của bạn là:"+OTP+"\nVui lòng không chia sẻ với ai\nMời nhấp link bên dưới để đến trang xác nhận OTP\nhttp://localhost:4200/forgotpass/otp");
-        mailService.sendEmail(mail);
+        IMailService.sendEmail(mail);
         return new ResponseEntity<>(true,HttpStatus.OK);
     }
 //    http://localhost:8080/api/public/mail/confirmOtp

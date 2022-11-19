@@ -1,8 +1,8 @@
 package com.example.trua_nay_an_gi.controller;
 
-import com.example.trua_nay_an_gi.model.product.Product;
+import com.example.trua_nay_an_gi.model.Product;
 
-import com.example.trua_nay_an_gi.service.product.ProductService;
+import com.example.trua_nay_an_gi.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @CrossOrigin("*")
 public class ProductController {
     @Autowired
-    ProductService productService;
+    IProductService productService;
 
     @GetMapping("/public/products")
     public ResponseEntity<List<Product>> finAll() {

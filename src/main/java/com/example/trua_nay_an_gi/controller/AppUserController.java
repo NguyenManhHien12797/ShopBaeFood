@@ -1,9 +1,7 @@
 package com.example.trua_nay_an_gi.controller;
 
-import com.example.trua_nay_an_gi.model.app_users.AppRoles;
-import com.example.trua_nay_an_gi.model.app_users.AppUser;
-import com.example.trua_nay_an_gi.service.app_users.AppUserService;
-import com.example.trua_nay_an_gi.service.app_users.IAppUserSevice;
+import com.example.trua_nay_an_gi.model.AppUser;
+import com.example.trua_nay_an_gi.service.IAppUserSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
