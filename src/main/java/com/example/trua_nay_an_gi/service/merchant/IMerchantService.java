@@ -8,18 +8,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IMerchantService extends GeneralService<Merchant> {
-//    Optional<Merchant> findMerchantByAccountId(Long id);
-//
-//    Optional<Merchant> findMerchantByAccount_Id(Long accountId);
-
-//    Iterable<DishDto> getAllDishDTO(Long id);
-//
-//    Iterable<ICustomerDto> getAllCustomerDto (Long id);
-//
-//    Iterable<OrderByQueryDto> finAllMerchantOrderByCustomerId (Long merchantId, Long userId);
-//
-//    Iterable<OrderByQueryDto> finAllOrderByMerchantIdInPeriod (Long id, LocalDate startTime, LocalDate endTime);
 
     void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID);
-    List<Merchant> findAllContai(String name);
+
+    List<Merchant> findAllContainer(String name);
+
+    Merchant findMerchantById(Long id);
+
+    Merchant updateMerchant(Long id, Merchant merchant);
+
+    void deleteMerchantById(Long id);
 }

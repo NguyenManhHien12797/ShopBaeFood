@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Getter
@@ -18,9 +19,13 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String userName;
+    @NotBlank
     private String password;
+
     private boolean isEnabled;
+    @NotBlank
     private String email;
     private String otp;
     @OneToOne(mappedBy = "account")

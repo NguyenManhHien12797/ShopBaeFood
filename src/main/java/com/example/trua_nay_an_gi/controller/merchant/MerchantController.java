@@ -1,6 +1,5 @@
 package com.example.trua_nay_an_gi.controller.merchant;
 
-import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.app_users.Merchant;
 import com.example.trua_nay_an_gi.service.merchant.IMerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
@@ -26,22 +24,12 @@ public class MerchantController {
 
     @PutMapping("/merchant/{id}")
     public ResponseEntity<Merchant> updateMerchant (@PathVariable Long id,@RequestBody Merchant merchant){
-        Optional<Merchant> merchantOptional = merchantService.findById(id);
-        if(!merchantOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        merchant.setId(merchantOptional.get().getId());
-        merchant.setAccount(merchantOptional.get().getAccount());
-        return new ResponseEntity<>(merchantService.save(merchant),HttpStatus.OK);
+        return new ResponseEntity<>(merchantService.updateMerchant(id,merchant),HttpStatus.OK);
     }
 
     @GetMapping("/public/merchant/{id}")
     public ResponseEntity<Merchant> findById(@PathVariable Long id) {
-        Optional<Merchant> merchantOptional = merchantService.findById(id);
-        if (!merchantOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(merchantOptional.get(), HttpStatus.OK);
+        return new ResponseEntity<>(merchantService.findMerchantById(id), HttpStatus.OK);
     }
 
     @PostMapping("/merchant")
@@ -51,16 +39,12 @@ public class MerchantController {
 
     @DeleteMapping("/merchant/{id}")
     public ResponseEntity<Merchant> deleteMerchant(@PathVariable Long id) {
-        Optional<Merchant> merchantOptional = merchantService.findById(id);
-        if (!merchantOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        merchantService.remove(id);
-        return new ResponseEntity<>(merchantOptional.get(), HttpStatus.NO_CONTENT);
+        merchantService.deleteMerchantById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PostMapping("/public/merchant/search")
     public ResponseEntity<?> searchMerchant(@RequestParam String name) {
-        List<Merchant> merchants = merchantService.findAllContai(name);
+        List<Merchant> merchants = merchantService.findAllContainer(name);
         return new ResponseEntity<>(merchants, HttpStatus.OK);
     }
 }

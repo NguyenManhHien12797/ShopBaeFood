@@ -22,5 +22,8 @@ public interface IMerchantRepository extends PagingAndSortingRepository<Merchant
     @Query(value = "insert into merchant(address,avatar,name,phone,status,account_id) values (?1,?2,?3,?4,?5,?6);", nativeQuery = true)
     void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID);
     @Query(value = "select * from merchant m where m.name like concat('%', ?1, '%')", nativeQuery = true)
-    List<Merchant> findAllMerchantAndNameContai(String name);
+    List<Merchant> findAllMerchantAndNameContainer(String name);
+
+    Optional<Merchant> findMerchantById(Long id);
+    void deleteMerchantById(Long id);
 }
