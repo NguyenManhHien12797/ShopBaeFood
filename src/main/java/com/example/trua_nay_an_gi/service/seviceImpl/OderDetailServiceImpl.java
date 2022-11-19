@@ -34,10 +34,6 @@ public class OderDetailServiceImpl implements IOderDetailService {
         oderDetailRepository.deleteById(id);
     }
 
-    @Override
-    public void removeAll() {
-
-    }
 
 
     @Override

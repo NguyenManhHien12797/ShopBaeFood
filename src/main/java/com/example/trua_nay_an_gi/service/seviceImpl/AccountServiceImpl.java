@@ -39,11 +39,6 @@ public class AccountServiceImpl implements IAccountService, UserDetailsService {
     }
 
     @Override
-    public void removeAll() {
-
-    }
-
-    @Override
     public Account findByName(String name) {
         return accountRepository.findByUserName(name);
     }

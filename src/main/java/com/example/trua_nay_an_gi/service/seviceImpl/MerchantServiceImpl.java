@@ -37,10 +37,6 @@ public class MerchantServiceImpl implements IMerchantService {
         merchantRepository.deleteById(id);
     }
 
-    @Override
-    public void removeAll() {
-
-    }
 
     @Override
     public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long accountID) {

@@ -38,10 +38,6 @@ public class OrderServiceImpl implements IOrderService {
         orderRepository.deleteById(id);
     }
 
-    @Override
-    public void removeAll() {
-
-    }
 
     @Override
     public Iterable<Order> findOrdersByAppUser(AppUser user) {

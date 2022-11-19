@@ -1,9 +1,18 @@
 package com.example.trua_nay_an_gi.service.seviceImpl;
 
+import com.example.trua_nay_an_gi.exception.AppUserNotFoundException;
+import com.example.trua_nay_an_gi.model.Account;
 import com.example.trua_nay_an_gi.model.AppUser;
+import com.example.trua_nay_an_gi.model.dto.AccountRegisterDTO;
+import com.example.trua_nay_an_gi.payload.response.MessageResponse;
 import com.example.trua_nay_an_gi.repository.IAppUserRepository;
+import com.example.trua_nay_an_gi.service.IAccountService;
 import com.example.trua_nay_an_gi.service.IAppUserSevice;
+import com.example.trua_nay_an_gi.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,6 +21,7 @@ import java.util.Optional;
 public class AppUserServiceImpl implements IAppUserSevice {
     @Autowired
     IAppUserRepository appUserRepository;
+
 
     @Override
     public Iterable<AppUser> findAll() {
@@ -34,23 +44,20 @@ public class AppUserServiceImpl implements IAppUserSevice {
     }
 
     @Override
-    public void removeAll() {
-
-    }
-
-
-    @Override
-    public boolean existByName(String name) {
-        return appUserRepository.existsByName(name);
+    public AppUser findUserById(Long id) {
+        return appUserRepository.findUserById(id).orElseThrow(() -> new AppUserNotFoundException(404, "AppUser by id "+id+ " was not found"));
     }
 
     @Override
-    public AppUser findByUserName(String name) {
-        return appUserRepository.findByName(name);
+    public AppUser updateUser(Long id, AppUser user) {
+        AppUser updateUser = this.findUserById(id);
+        user.setId(updateUser.getId());
+        user.setAccount(updateUser.getAccount());
+        return appUserRepository.save(user);
     }
 
     @Override
-    public void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id,String status) {
+    public void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id, String status) {
         appUserRepository.saveUserToRegister(address,avatar,name,phone,account_id,status);
     }
 }

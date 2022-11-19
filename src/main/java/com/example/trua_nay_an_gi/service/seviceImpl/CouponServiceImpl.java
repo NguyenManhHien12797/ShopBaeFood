@@ -34,11 +34,6 @@ public class CouponServiceImpl implements ICouponService {
     }
 
     @Override
-    public void removeAll() {
-
-    }
-
-    @Override
     public List<Coupon> finallCouponDeleteflagTrue() {
         return couponRepository.finallCouponDeleteflagTrue();
     }

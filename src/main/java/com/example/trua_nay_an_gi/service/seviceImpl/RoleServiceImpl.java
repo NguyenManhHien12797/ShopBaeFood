@@ -33,10 +33,6 @@ IRoleRepository accountRoleRepository;
         accountRoleRepository.deleteById(id);
     }
 
-    @Override
-    public void removeAll() {
-
-    }
 
     @Override
     public Optional<AppRoles> findByName(String name) {

@@ -37,7 +37,7 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public void removeAll() {
+    public void removeAll(){
         cartRepository.deleteAll();
     }
 

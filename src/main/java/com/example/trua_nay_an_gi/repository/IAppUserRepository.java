@@ -7,11 +7,14 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 public interface IAppUserRepository extends PagingAndSortingRepository<AppUser,Long> {
  boolean existsByName(String name);
- AppUser findByName(String name);
+ Optional<AppUser> findByName(String name);
+ Optional<AppUser> findUserById(Long id);
+
 
  @Modifying
  @Transactional

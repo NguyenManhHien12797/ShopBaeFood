@@ -21,4 +21,6 @@ public interface ICartService extends IGeneralService<Cart> {
 
     void deleteCartsByUser(AppUser user);
 
+    void removeAll();
+
 }
