@@ -7,20 +7,25 @@ import com.example.trua_nay_an_gi.model.Product;
 import java.util.Optional;
 
 public interface ICartService extends IGeneralService<Cart> {
-    Iterable<Cart> findAllByUser(AppUser user);
+    Iterable<Cart> findAllByUserId(Long id);
 
     void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
 
-    Optional<Cart> findCartByProduct(Product product);
+    Cart findCartByProduct(Long id);
 
     boolean existsCartByProductId(Long id);
     void setProductCart(Long cart_id, Long product_id);
 
     Optional<Cart> findCartByProductIdAndUserId(Long product_id, Long user_id);
-    void updateQuantityCart(int quantity,Long cart_id);
+    void updateQuantityCart(Long product_id,Long user_id);
 
-    void deleteCartsByUser(AppUser user);
+    void deleteCartsByUser(Long id);
 
     void removeAll();
+
+    Cart findCartById(Long id);
+    Cart updateCart(Long id, Cart cart);
+
+
 
 }

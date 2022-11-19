@@ -6,6 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IProductRepository extends PagingAndSortingRepository<Product, Long> {
@@ -17,4 +18,5 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
     @Query(value = "select * from Product p where p.delete_flag = true and p.merchant_id = ?1 and p.name like concat('%', ?2, '%')", nativeQuery = true)
     List<Product> fAllByDeleFlagTAndMerAndNameContai(Long id,String name);
 
+    Optional<Product> findProductById(Long id);
 }

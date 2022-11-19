@@ -1,5 +1,7 @@
 package com.example.trua_nay_an_gi.service.seviceImpl;
 
+import com.example.trua_nay_an_gi.exception.AccountNotFoundException;
+import com.example.trua_nay_an_gi.exception.ProductNotFoundException;
 import com.example.trua_nay_an_gi.model.Product;
 import com.example.trua_nay_an_gi.repository.IProductRepository;
 import com.example.trua_nay_an_gi.service.IProductService;
@@ -51,6 +53,11 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public List<Product> fAllByDeleFlagTAndMerAndNameContai(Long id, String name) {
         return productRepository.fAllByDeleFlagTAndMerAndNameContai(id,name);
+    }
+
+    @Override
+    public Product findProductById(Long id) {
+        return productRepository.findProductById(id).orElseThrow(() -> new ProductNotFoundException(404, "Product by id "+ id + " was not found"));
     }
 
 

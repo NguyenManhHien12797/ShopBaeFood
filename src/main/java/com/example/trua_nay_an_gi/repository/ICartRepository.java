@@ -23,6 +23,7 @@ public interface ICartRepository extends PagingAndSortingRepository<Cart, Long> 
     void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
 
     Optional<Cart> findCartByProduct(Product product);
+    Optional<Cart> findCartById(Long id);
 
     @Query(value = "select * from cart where product_id = ?1 and user_id= ?2", nativeQuery = true)
     Optional<Cart> findCartByProductIdAndUserId(Long product_id, Long user_id);

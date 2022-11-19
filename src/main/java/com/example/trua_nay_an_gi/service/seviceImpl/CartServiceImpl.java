@@ -1,10 +1,14 @@
 package com.example.trua_nay_an_gi.service.seviceImpl;
 
+import com.example.trua_nay_an_gi.exception.AccountNotFoundException;
+import com.example.trua_nay_an_gi.exception.CartNotFoundException;
 import com.example.trua_nay_an_gi.model.AppUser;
 import com.example.trua_nay_an_gi.model.Cart;
 import com.example.trua_nay_an_gi.model.Product;
 import com.example.trua_nay_an_gi.repository.ICartRepository;
+import com.example.trua_nay_an_gi.service.IAppUserSevice;
 import com.example.trua_nay_an_gi.service.ICartService;
+import com.example.trua_nay_an_gi.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,10 @@ import java.util.Optional;
 public class CartServiceImpl implements ICartService {
     @Autowired
     private ICartRepository cartRepository;
+    @Autowired
+    private IAppUserSevice userSevice;
+    @Autowired
+    private IProductService productService;
 
     @Override
     public Iterable<Cart> findAll() {
@@ -42,18 +50,36 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public Iterable<Cart> findAllByUser(AppUser user) {
-        return cartRepository.findAllByUser(user);
+    public Cart findCartById(Long id) {
+        return cartRepository.findCartById(id)
+                .orElseThrow(() -> new CartNotFoundException(404, "Cart by id "+ id + " was not found"));
+    }
+
+    @Override
+    public Cart updateCart(Long id, Cart cart) {
+        Cart updateCart = this.findCartById(id);
+        cart.setId(updateCart.getId());
+        return cartRepository.save(cart);
+    }
+
+    @Override
+    public Iterable<Cart> findAllByUserId(Long id) {
+        AppUser appUser = userSevice.findUserById(id);
+        return cartRepository.findAllByUser(appUser);
     }
 
     @Override
     public void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice) {
       cartRepository.saveCart(quantity, price, userID, productId, totalPrice);
+      Optional<Cart> cart = this.findCartByProductIdAndUserId(productId,userID);
+      this.setProductCart(cart.get().getId(), productId);
     }
 
     @Override
-    public Optional<Cart> findCartByProduct(Product product) {
-        return cartRepository.findCartByProduct(product);
+    public Cart findCartByProduct(Long id) {
+        Product product = productService.findProductById(id);
+        return cartRepository.findCartByProduct(product)
+                .orElseThrow(() -> new CartNotFoundException(404, "Cart by produc "+ product + " was not found"));
     }
 
     @Override
@@ -72,13 +98,16 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public void updateQuantityCart(int quantity, Long cart_id) {
-        cartRepository.updateQuantityCart(quantity,cart_id);
+    public void updateQuantityCart(Long product_id, Long user_id) {
+        Optional<Cart> cart = this.findCartByProductIdAndUserId(product_id, user_id);
+        int quantity = cart.get().getQuantity() + 1;
+        cartRepository.updateQuantityCart(quantity,cart.get().getId());
     }
 
     @Override
-    public void deleteCartsByUser(AppUser user) {
-        cartRepository.deleteCartsByUser(user);
+    public void deleteCartsByUser(Long id) {
+        AppUser appUser = userSevice.findUserById(id);
+        cartRepository.deleteCartsByUser(appUser);
     }
 
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    @ExceptionHandler({ MerchantNotFoundException.class, AccountNotFoundException.class, AppUserNotFoundException.class })
+    @ExceptionHandler({ MerchantNotFoundException.class, AccountNotFoundException.class, AppUserNotFoundException.class, CartNotFoundException.class, ProductNotFoundException.class })
     public ResponseEntity<String> handleExceptionA(Exception e) {
         logger.error(String.valueOf(e));
         return ResponseEntity.status(404).body(e.getMessage());
