@@ -1,5 +1,6 @@
 package com.example.trua_nay_an_gi.service.account;
 
+import com.example.trua_nay_an_gi.exception.AccountNotFoundException;
 import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.app_users.AppRoles;
 import com.example.trua_nay_an_gi.model.app_users.Merchant;
@@ -63,27 +64,47 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
-    public Set<AppRoles> findAppRoleByAccountId(Long id) {
-        List<String> roles = accountRepository.findAppRoleByAccountId(id);
-        Set<AppRoles> rolesSet = new HashSet<>();
-        roles.forEach(role -> rolesSet.add(new AppRoles(role)));
-        return rolesSet;
+    public Account findAccByMerchantId(Long id) {
+        return accountRepository.findAccByMerchantId(id).orElseThrow(() -> new AccountNotFoundException(404, "Account by id "+ id + " was not found"));
     }
 
     @Override
-    public Optional<Account> findAccByMerchantId(Long id) {
-        return accountRepository.findAccByMerchantId(id);
+    public Account findAccByUserId(Long id) {
+        return accountRepository.findAccByUserId(id).orElseThrow(() -> new AccountNotFoundException(404,"Account by id "+ id + " was not found"));
     }
 
     @Override
-    public Optional<Account> findAccByUserId(Long id) {
-        return accountRepository.findAccByUserId(id);
+    public Account findAccountById(Long id) {
+        return accountRepository.findAccountById(id).orElseThrow(() -> new AccountNotFoundException(404, "Account by id "+ id + " was not found"));
     }
 
     @Override
-    public String findEmailByMerchantID(Long id) {
-        return accountRepository.findEmailByMerchantID(id);
+    public Account updateAccountUserInfo(Long id, Account account) {
+        Account updateAccount = this.findAccountById(id);
+        updateAccount.setUserName(account.getUserName());
+        updateAccount.setEmail(account.getEmail());
+        updateAccount.setUser(account.getUser());
+        updateAccount.setEnabled(true);
+        return accountRepository.save(updateAccount);
     }
+
+    @Override
+    public Account updateAccountMerchantInfo(Long id, Account account) {
+        Account updateAccount = this.findAccountById(id);
+        updateAccount.setUserName(account.getUserName());
+        updateAccount.setEmail(account.getEmail());
+        updateAccount.setMerchant(account.getMerchant());
+        updateAccount.setEnabled(true);
+        return accountRepository.save(updateAccount);
+    }
+
+    @Override
+    public Account updateAccount(Long id, Account account) {
+        Account updatAccount = this.findAccountById(id);
+        account.setId(updatAccount.getId());
+        return accountRepository.save(account);
+    }
+
 
     @Override
     @Transactional

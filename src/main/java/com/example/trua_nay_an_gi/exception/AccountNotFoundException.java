@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MerchantNotFoundException extends  RuntimeException{
+public class AccountNotFoundException extends RuntimeException {
     private int code;
     private String message;
 }

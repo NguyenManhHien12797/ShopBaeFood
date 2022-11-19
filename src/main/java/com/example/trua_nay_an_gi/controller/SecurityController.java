@@ -30,8 +30,6 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 @RequestMapping("/api/public")
 public class SecurityController {
-//    @Autowired
-//    JwtService jwtService;
 
     @Autowired
     private JwtUtility jwtUtility;

@@ -1,12 +1,11 @@
 package com.example.trua_nay_an_gi.controller.cart;
 
 import com.example.trua_nay_an_gi.model.app_users.AppUser;
-import com.example.trua_nay_an_gi.model.app_users.Merchant;
 import com.example.trua_nay_an_gi.model.dto.CartDTO;
 import com.example.trua_nay_an_gi.model.product.Cart;
 import com.example.trua_nay_an_gi.model.product.Product;
 import com.example.trua_nay_an_gi.payload.response.MessageResponse;
-import com.example.trua_nay_an_gi.service.account.product.IProductService;
+import com.example.trua_nay_an_gi.service.product.IProductService;
 import com.example.trua_nay_an_gi.service.app_users.IAppUserSevice;
 import com.example.trua_nay_an_gi.service.cart.ICartService;
 

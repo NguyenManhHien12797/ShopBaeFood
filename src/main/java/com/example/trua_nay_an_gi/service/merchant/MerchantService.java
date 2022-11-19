@@ -53,8 +53,7 @@ public class MerchantService implements IMerchantService {
 
     @Override
     public Merchant findMerchantById(Long id) {
-        return merchantRepository.findById(id).orElseThrow(() -> new MerchantNotFoundException("Merchant by id " + id + "was not foung"));
-
+        return merchantRepository.findById(id).orElseThrow(() -> new MerchantNotFoundException(404,"Merchant by id " + id + " was not found"));
     }
 
     @Override

@@ -24,15 +24,9 @@ public interface AccountRepository extends PagingAndSortingRepository<Account,Lo
     @Query(value = "select id from  account where user_name = ?1", nativeQuery = true)
     Long findIdUserByUserName(String username);
 
-    @Query(nativeQuery = true, value = "Select r.id,r.name FROM account as a JOIN account_role as ar ON a.id = ar.account_id JOIN app_roles as r on ar.role_id = r.id where a.id = ?1")
-    Collection<GrantedAuthority> findRoleByAccountId(Long id);
-    @Query(nativeQuery = true, value = "Select r.name FROM account as a JOIN account_role as ar ON a.id = ar.account_id JOIN app_roles as r on ar.role_id = r.id where a.id = ?1")
-    List<String> findAppRoleByAccountId(Long id);
-
     @Query(nativeQuery = true, value = "select * from account join merchant m on account.id = m.account_id and m.id =?1")
     Optional<Account> findAccByMerchantId(Long id);
-    @Query(nativeQuery = true, value = "select account.email from account join merchant m on account.id = m.account_id and m.id =?1")
-    String findEmailByMerchantID(Long id);
     @Query(nativeQuery = true, value = "select * from account join app_user a on account.id = a.account_id and a.id =?1")
     Optional<Account> findAccByUserId(Long id);
+    Optional<Account> findAccountById(Long id);
 }

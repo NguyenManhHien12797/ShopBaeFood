@@ -14,10 +14,15 @@ public interface IAccountService extends GeneralService<Account> {
     Long findIdUserByUserName(String username);
 
     boolean existsAccountByUserName(String username);
-    Set<AppRoles> findAppRoleByAccountId(Long id);
-    Optional<Account> findAccByMerchantId(Long id);
-    Optional<Account> findAccByUserId(Long id);
+    Account findAccByMerchantId(Long id);
 
-    String findEmailByMerchantID(Long id);
+   Account findAccByUserId(Long id);
+
+    Account findAccountById(Long id);
+
+    Account updateAccountUserInfo(Long id, Account account);
+    Account updateAccountMerchantInfo(Long id, Account account);
+    Account updateAccount(Long id, Account account);
+
 
 }
