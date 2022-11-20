@@ -72,6 +72,17 @@ public class SecurityController {
                 if("pending".equals(status)){
                     return ResponseEntity.ok(new MessageResponse("Admin chưa phê duyệt đăng ký merchant"));
                 }
+                if("block".equals(status)){
+                    return ResponseEntity.ok(new MessageResponse("Tài khoản của bạn đang bị khóa"));
+                }
+                if("refuse".equals(status)){
+                    return ResponseEntity.ok(new MessageResponse("Admin đã từ chối đăng ký merchant"));
+                }
+            }if(account.getUser() != null){
+                String status= account.getUser().getStatus();
+                if("block".equals(status)){
+                    return ResponseEntity.ok(new MessageResponse("Tài khoản của bạn đang bị khóa"));
+                }
             }
 
             return new ResponseEntity(new AccountToken(account.getId(), account.getUserName(), token, roles, account.getMerchant(),account.getUser()), HttpStatus.OK);
@@ -88,7 +99,7 @@ public class SecurityController {
                     .badRequest()
                     .body(new MessageResponse("Username đã được đăng ký"));
         }
-
+        String status="active";
         boolean isEnabled = true;
         Account account = new Account(request.getUserName(), encoder.encode(request.getPassword()), request.getEmail(), isEnabled);
         accountService.save(account);
@@ -96,9 +107,9 @@ public class SecurityController {
         roleService.setDefaultRole(idAccountAfterCreated, 2);
         String avatar = "https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg";
 
-        userSevice.saveUserToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),idAccountAfterCreated);
+        userSevice.saveUserToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),idAccountAfterCreated,status);
         return ResponseEntity.ok(new MessageResponse("Đăng ký tài khoản thành công"));
-    }
+            }
 
     @PostMapping("/register/merchant")
     public ResponseEntity<?> addMerchant(@RequestBody AccountRegisterDTO request) {

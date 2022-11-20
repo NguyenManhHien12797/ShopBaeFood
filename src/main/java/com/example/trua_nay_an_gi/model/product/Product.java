@@ -25,15 +25,15 @@ public class Product {
     private Double oldPrice;
     private Double newPrice;
     private String image;
+    private int quantity;
 
     @Column(name = "deleteFlag", columnDefinition = "boolean default true")
     private boolean deleteFlag;
 
     @ManyToOne
     @JoinColumn(name = "merchant_id")
-    @JsonBackReference
+//    @JsonBackReference
     private Merchant merchant;
-
 
 
 }

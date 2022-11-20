@@ -2,9 +2,10 @@ package com.example.trua_nay_an_gi.service.account;
 
 import com.example.trua_nay_an_gi.model.app_users.Account;
 import com.example.trua_nay_an_gi.model.app_users.AppRoles;
+import com.example.trua_nay_an_gi.model.app_users.Merchant;
+import com.example.trua_nay_an_gi.model.dto.MerchantDTO;
 import com.example.trua_nay_an_gi.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,6 +43,11 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public void removeAll() {
+
+    }
+
+    @Override
     public Account findByName(String name) {
         return accountRepository.findByUserName(name);
     }
@@ -65,9 +71,24 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public Optional<Account> findAccByMerchantId(Long id) {
+        return accountRepository.findAccByMerchantId(id);
+    }
+
+    @Override
+    public Optional<Account> findAccByUserId(Long id) {
+        return accountRepository.findAccByUserId(id);
+    }
+
+    @Override
+    public String findEmailByMerchantID(Long id) {
+        return accountRepository.findEmailByMerchantID(id);
+    }
+
+    @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account= accountRepository.findByUserName(username);
+        Account account = accountRepository.findByUserName(username);
         return AccountDetails.build(account);
     }
 

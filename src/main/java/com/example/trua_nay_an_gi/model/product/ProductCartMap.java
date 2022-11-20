@@ -1,5 +1,6 @@
 package com.example.trua_nay_an_gi.model.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,6 @@ public class ProductCartMap {
     private Product product;
     @ManyToOne
     @JoinColumn(name = "cart_id")
+    @JsonBackReference
     private Cart cart;
 }

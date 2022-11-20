@@ -18,10 +18,9 @@ public class AppUser {
     private String address;
     private String phone;
     private String avatar;
+    private String status;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     @JsonBackReference
     private Account account;
-
-
 }

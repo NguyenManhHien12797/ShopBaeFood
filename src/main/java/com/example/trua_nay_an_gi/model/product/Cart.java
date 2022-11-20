@@ -19,9 +19,17 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantity;
+    private  Double price;
     private Double totalPrice;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+//    @JsonBackReference
     private AppUser user;
+
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
+    private Product product;
+
 
 }
