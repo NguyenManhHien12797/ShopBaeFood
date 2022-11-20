@@ -1,20 +1,12 @@
 package com.example.trua_nay_an_gi.controller;
 
-import com.example.trua_nay_an_gi.model.AppUser;
 import com.example.trua_nay_an_gi.model.dto.CartDTO;
 import com.example.trua_nay_an_gi.model.Cart;
-import com.example.trua_nay_an_gi.model.Product;
-import com.example.trua_nay_an_gi.payload.response.MessageResponse;
-import com.example.trua_nay_an_gi.service.IAppUserSevice;
 import com.example.trua_nay_an_gi.service.ICartService;
-
-import com.example.trua_nay_an_gi.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
