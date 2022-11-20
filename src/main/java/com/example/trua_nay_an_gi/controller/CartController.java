@@ -57,20 +57,9 @@ public class CartController {
         return new ResponseEntity<>(existsCartByProductId, HttpStatus.OK);
     }
 
-
     @PostMapping("/cart")
-    public ResponseEntity<?> saveCart(@RequestBody CartDTO cart) {
-        Optional<Cart> optionalCart1 = cartService.findCartByProductIdAndUserId(cart.getProduct_id(), cart.getUser_id());
-        if (optionalCart1.isPresent()) {
-            return ResponseEntity.ok(new MessageResponse("Co cart roi"));
-        }
-        cartService.saveCart(cart.getQuantity(), cart.getPrice(), cart.getUser_id(), cart.getProduct_id(), cart.getTotalPrice());
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @PostMapping("/cart/{product_id}")
-    public ResponseEntity<Cart> updateToCart(@PathVariable Long product_id, @RequestBody Long user_id) {
-        cartService.updateQuantityCart(product_id,user_id);
+    public ResponseEntity<?> addToCart(@RequestBody CartDTO cart) {
+        cartService.addToCart(cart);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

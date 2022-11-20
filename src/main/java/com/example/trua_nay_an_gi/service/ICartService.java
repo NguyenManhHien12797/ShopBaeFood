@@ -3,6 +3,7 @@ package com.example.trua_nay_an_gi.service;
 import com.example.trua_nay_an_gi.model.AppUser;
 import com.example.trua_nay_an_gi.model.Cart;
 import com.example.trua_nay_an_gi.model.Product;
+import com.example.trua_nay_an_gi.model.dto.CartDTO;
 
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public interface ICartService extends IGeneralService<Cart> {
 
     Cart findCartById(Long id);
     Cart updateCart(Long id, Cart cart);
+    void addToCart(CartDTO cart);
 
 
 
