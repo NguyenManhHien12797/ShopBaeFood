@@ -1,7 +1,7 @@
 package com.example.trua_nay_an_gi.model.dto;
 
-import com.example.trua_nay_an_gi.model.app_users.AppUser;
-import com.example.trua_nay_an_gi.model.app_users.Merchant;
+import com.example.trua_nay_an_gi.model.AppUser;
+import com.example.trua_nay_an_gi.model.Merchant;
 import lombok.Builder;
 
 import java.util.List;

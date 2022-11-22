@@ -1,9 +1,8 @@
 package com.example.trua_nay_an_gi.controller;
 
 
-import com.example.trua_nay_an_gi.model.product.Coupon;
-import com.example.trua_nay_an_gi.service.coupon.CouponService;
-import com.example.trua_nay_an_gi.service.coupon.ICouponService;
+import com.example.trua_nay_an_gi.model.Coupon;
+import com.example.trua_nay_an_gi.service.ICouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

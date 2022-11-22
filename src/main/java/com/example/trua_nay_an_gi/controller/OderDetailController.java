@@ -1,10 +1,9 @@
 package com.example.trua_nay_an_gi.controller;
 
-import com.example.trua_nay_an_gi.model.product.Coupon;
-import com.example.trua_nay_an_gi.model.product.Order;
-import com.example.trua_nay_an_gi.model.product.OrderDetail;
-import com.example.trua_nay_an_gi.service.oder_detail.OderDetailService;
-import com.example.trua_nay_an_gi.service.order.IOrderService;
+import com.example.trua_nay_an_gi.model.Order;
+import com.example.trua_nay_an_gi.model.OrderDetail;
+import com.example.trua_nay_an_gi.service.IOderDetailService;
+import com.example.trua_nay_an_gi.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @RestController
 public class OderDetailController {
     @Autowired
-    OderDetailService oderDetailService;
+    IOderDetailService oderDetailService;
     @Autowired
     private IOrderService orderService;
 

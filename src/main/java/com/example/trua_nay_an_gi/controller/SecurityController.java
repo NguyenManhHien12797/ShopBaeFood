@@ -1,16 +1,16 @@
 package com.example.trua_nay_an_gi.controller;
 
 import com.example.trua_nay_an_gi.jwt.JwtUtility;
-import com.example.trua_nay_an_gi.model.app_users.Account;
+import com.example.trua_nay_an_gi.model.Account;
 import com.example.trua_nay_an_gi.model.dto.AccountRegisterDTO;
 import com.example.trua_nay_an_gi.model.dto.AccountToken;
 import com.example.trua_nay_an_gi.payload.request.LoginRequest;
 import com.example.trua_nay_an_gi.payload.response.MessageResponse;
-import com.example.trua_nay_an_gi.service.account.AccountDetails;
-import com.example.trua_nay_an_gi.service.account.IAccountService;
-import com.example.trua_nay_an_gi.service.account_role.IRoleService;
-import com.example.trua_nay_an_gi.service.app_users.IAppUserSevice;
-import com.example.trua_nay_an_gi.service.merchant.IMerchantService;
+import com.example.trua_nay_an_gi.service.seviceImpl.AccountDetails;
+import com.example.trua_nay_an_gi.service.IAccountService;
+import com.example.trua_nay_an_gi.service.IRoleService;
+import com.example.trua_nay_an_gi.service.IAppUserSevice;
+import com.example.trua_nay_an_gi.service.IMerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +29,6 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 @RequestMapping("/api/public")
 public class SecurityController {
-//    @Autowired
-//    JwtService jwtService;
 
     @Autowired
     private JwtUtility jwtUtility;
