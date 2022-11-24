@@ -15,17 +15,23 @@ public class JwtUtility implements Serializable {
 
     public String createJwTToken(String userName){
         return Jwts.builder()
+//                truyền user name vào tocken
                 .setSubject(userName)
+//                thời gian khởi tạo token
                 .setIssuedAt(new Date())
+//                thời gian sống của token
                 .setExpiration(new Date((new Date()).getTime()+ (100*60*60*24*30)))
+//                Công nghệ mã hóa
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
+//    giải mã token
     public String getUserNameFromJwtToken(String token){
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
+//    in ra exception trong consolog
     public boolean validateJwtToken(String authToken){
         try{
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
