@@ -1,6 +1,8 @@
 package com.example.trua_nay_an_gi.service.seviceImpl;
 
 
+import com.example.trua_nay_an_gi.exception.AccountNotFoundException;
+import com.example.trua_nay_an_gi.exception.OrderNotFoundException;
 import com.example.trua_nay_an_gi.model.AppUser;
 import com.example.trua_nay_an_gi.model.Order;
 import com.example.trua_nay_an_gi.repository.IOrderRepository;
@@ -42,5 +44,10 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public Iterable<Order> findOrdersByAppUser(AppUser user) {
         return orderRepository.findOrdersByAppUser(user);
+    }
+
+    @Override
+    public Order findOrderById(Long id) {
+        return orderRepository.findOrderById(id).orElseThrow(() -> new OrderNotFoundException(404, "Order by id "+id + " was not found"));
     }
 }
