@@ -40,7 +40,7 @@ public class AccountServiceImpl implements IAccountService, UserDetailsService {
 
     @Override
     public Account findByName(String name) {
-        return accountRepository.findByUserName(name);
+        return accountRepository.findByUserName(name).orElseThrow(() -> new AccountNotFoundException(404, "Account by namw "+ name + " was not found"));
     }
 
     @Override
@@ -99,7 +99,7 @@ public class AccountServiceImpl implements IAccountService, UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findByUserName(username);
+        Account account = this.findByName(username);
         return AccountDetails.build(account);
     }
 

@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface IAccountRepository extends PagingAndSortingRepository<Account,Long> {
     @Query("select a from account a where a.userName = ?1")
-    Account findByUserName(String name);
+    Optional<Account> findByUserName(String name);
 
     boolean existsAccountByUserName(String username);
 
