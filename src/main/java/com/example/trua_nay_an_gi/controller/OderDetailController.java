@@ -29,11 +29,7 @@ public class OderDetailController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderDetail> findById(@PathVariable Long id) {
-        Optional<OrderDetail> orderDetailOptional = oderDetailService.findById(id);
-        if (!orderDetailOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(orderDetailOptional.get(),HttpStatus.OK);
+        return new ResponseEntity<>(oderDetailService.findOrderDetailById(id),HttpStatus.OK);
     }
 
     @PostMapping()
@@ -43,29 +39,18 @@ public class OderDetailController {
 
     @PutMapping("/{id}")
     public ResponseEntity<OrderDetail> updateOrderdetail (@RequestBody OrderDetail orderDetail, @PathVariable Long id ) {
-        Optional<OrderDetail> orderDetails = oderDetailService.findById(id);
-        if (!orderDetails.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        orderDetail.setId(orderDetails.get().getId());
-        return new ResponseEntity<>(oderDetailService.save(orderDetail),HttpStatus.OK);
+        return new ResponseEntity<>(oderDetailService.updateOrderdetal(id,orderDetail),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<OrderDetail> deleteOderdetail (@PathVariable Long id){
-        Optional<OrderDetail> orderDetailOptional = oderDetailService.findById(id);
-        if (!orderDetailOptional.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         oderDetailService.remove(id);
-        return new ResponseEntity<>(orderDetailOptional.get(),HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/order/{id}")
     public ResponseEntity<Iterable<OrderDetail>> findOrderDetailByOrderId(@PathVariable Long id) {
-        Optional<Order> orderOptional = orderService.findById(id);
-
-        Iterable<OrderDetail> orderDetailOptional = oderDetailService.findOrderDetailsByOrder(orderOptional.get());
+        Iterable<OrderDetail> orderDetailOptional = oderDetailService.findOrderDetailsByOrderId(id);
         return new ResponseEntity<>(orderDetailOptional,HttpStatus.OK);
     }
  }

@@ -16,6 +16,10 @@ public class MerchantServiceImpl implements IMerchantService {
     @Autowired
     private IMerchantRepository merchantRepository;
 
+    public MerchantServiceImpl(IMerchantRepository merchantRepository) {
+        this.merchantRepository = merchantRepository;
+    }
+
 
     @Override
     public Iterable<Merchant> findAll() {

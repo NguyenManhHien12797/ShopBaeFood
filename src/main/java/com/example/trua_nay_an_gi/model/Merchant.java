@@ -47,4 +47,5 @@ public class Merchant {
     @JoinColumn(name = "account_id")
     @JsonBackReference
     private Account account;
+
 }
