@@ -6,11 +6,8 @@ import com.example.trua_nay_an_gi.model.dto.AccountRegisterDTO;
 import com.example.trua_nay_an_gi.model.dto.AccountToken;
 import com.example.trua_nay_an_gi.payload.request.LoginRequest;
 import com.example.trua_nay_an_gi.payload.response.MessageResponse;
+import com.example.trua_nay_an_gi.service.*;
 import com.example.trua_nay_an_gi.service.seviceImpl.AccountDetails;
-import com.example.trua_nay_an_gi.service.IAccountService;
-import com.example.trua_nay_an_gi.service.IRoleService;
-import com.example.trua_nay_an_gi.service.IAppUserSevice;
-import com.example.trua_nay_an_gi.service.IMerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,19 +36,10 @@ public class SecurityController {
     private IAccountService accountService;
 
     @Autowired
-    private IRoleService roleService;
-
-    @Autowired
-    private IAppUserSevice userSevice;
-
-    @Autowired
-    private IMerchantService merchantService;
-
-    @Autowired
-    private PasswordEncoder encoder;
+    private ISecurityService securityService;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         try {
             // Tạo ra 1 đối tượng Authentication.
             Authentication authentication = authenticationManager.authenticate(
@@ -92,40 +79,12 @@ public class SecurityController {
 
     @PostMapping("/register")
     public ResponseEntity<?> addUser(@RequestBody AccountRegisterDTO request) {
-        if (accountService.existsAccountByUserName(request.getUserName())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Username đã được đăng ký"));
-        }
-        String status="active";
-        boolean isEnabled = true;
-        Account account = new Account(request.getUserName(), encoder.encode(request.getPassword()), request.getEmail(), isEnabled);
-        accountService.save(account);
-        Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
-        roleService.setDefaultRole(idAccountAfterCreated, 2);
-        String avatar = "https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg";
-
-        userSevice.saveUserToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),idAccountAfterCreated,status);
-        return ResponseEntity.ok(new MessageResponse("Đăng ký tài khoản thành công"));
+        return ResponseEntity.ok(securityService.addUser(request));
             }
 
     @PostMapping("/register/merchant")
     public ResponseEntity<?> addMerchant(@RequestBody AccountRegisterDTO request) {
-        if (accountService.existsAccountByUserName(request.getUserName())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Merchant đã được đăng ký"));
-        }
-
-        boolean isEnabled = true;
-        Account account = new Account(request.getUserName(), encoder.encode(request.getPassword()), request.getEmail(), isEnabled);
-        accountService.save(account);
-        Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
-        roleService.setDefaultRole(idAccountAfterCreated, 3);
-        String avatar = "https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg";
-        String status = "pending";
-        merchantService.saveMerchantToRegister(request.getAddress(),avatar,request.getName(),request.getPhone(),status,idAccountAfterCreated);
-        return ResponseEntity.ok(new MessageResponse("Đăng ký tài khoản thành công"));
+        return ResponseEntity.ok(securityService.addMerchant(request));
     }
 }
 
